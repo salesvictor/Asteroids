@@ -1,5 +1,6 @@
 import sys
 import pygame
+import TitleScreen
 
 def main(args, fps, starting_scene):
     if args is None:
