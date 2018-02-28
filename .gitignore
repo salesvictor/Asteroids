@@ -1,4 +1,12 @@
+#Ignore all archives from Python Virtual Enviroment
+venv/
 
+# Ignore created .pyc files
+.models/__pycache__/
+
+#Pycharm
+.idea/
+
+#Ignore following extensions
 *.xml
-.idea/workspace.xml
-.models/__pycache__\
+*.iml
