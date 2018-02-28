@@ -1,3 +1,9 @@
+#Ignore all archives from Python Virtual Enviroment 
+venv/
 
+#Pycharm
+.idea/
+
+#Ignore following extensions
 *.xml
-.idea/workspace.xml
+*.iml
