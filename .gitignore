@@ -1,3 +1,4 @@
 
 *.xml
 .idea/workspace.xml
+.models/__pycache__\

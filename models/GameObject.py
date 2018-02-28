@@ -1,6 +1,9 @@
-class GameObject:
+import pygame
+
+class GameObject(pygame.sprite.Sprite):
 
     def __init__(self, x, y, screen):
+        super().__init__()
         self.x = x
         self.y = y
         self.screen = screen
