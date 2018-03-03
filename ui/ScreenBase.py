@@ -3,7 +3,7 @@ class ScreenBase:
     def __init__(self):
         self.next = self
 
-    def process_input(self, events):
+    def process_input(self, events, pressed_keys):
         pass
 
     def update(self):

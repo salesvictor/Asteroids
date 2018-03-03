@@ -1,14 +1,15 @@
 import sys
 import pygame
-import TitleScreen
+from TitleScreen import TitleScreen
+
 
 def main(args, fps, starting_scene):
-    if args is None:
-        size = (640, 480)
+    if not args:
+        size = (800, 640)
     elif len(args) == 2:
         size = (float(args[1]), float(args[2]))
     else:
-        print('Usage:\n  main.py width heigth.\nExample:\n  main.py 640 480\n')
+        print('Usage:\n  main.py width heigth.\nExample:\n  main.py 800 640\n')
         return
 
     pygame.init()
@@ -22,6 +23,7 @@ def main(args, fps, starting_scene):
 
         filtered_events = []
         for event in pygame.event.get():
+            # Check if the user quit the game
             quit_attempt = False
 
             if event.type == pygame.QUIT:
@@ -35,13 +37,15 @@ def main(args, fps, starting_scene):
                     quit_attempt = True
 
             if quit_attempt:
-                active_scene.Terminate()
+                active_scene.terminate()
             else:
                 filtered_events.append(event)
 
-        active_scene.ProcessInput(filtered_events, pressed_keys)
-        active_scene.Update()
-        active_scene.Render(screen)
+        # Process the filtered_events and update the frame
+        active_scene.process_input(filtered_events, pressed_keys)
+        # TODO: Implement update
+        # active_scene.update()
+        active_scene.render(screen)
 
         active_scene = active_scene.next
 
