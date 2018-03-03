@@ -4,6 +4,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import pygame
 from math import cos, sin, radians
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from models.Ship import Ship
 
 if __name__ == '__main__':

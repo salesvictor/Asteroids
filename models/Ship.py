@@ -1,10 +1,9 @@
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
 import pygame
-from models.GameObject import GameObject
 
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from models.GameObject import GameObject
 
 class Ship(GameObject):
     ACCEL = 0.5
@@ -15,13 +14,6 @@ class Ship(GameObject):
         # super().__init__(screen.width//2, screen.height//2, (0, 0), screen)
         super().__init__(x, y, 0, (0, 0), 0, screen, 'ship.png', 0.1)
         self.speed = 0
-
-    def update(self):
-        self.x += self.speed * self.vel_dir[0]
-        self.y -= self.speed * self.vel_dir[1]
-        self.rect = self.image.get_rect(center=(self.x, self.y))
-
-        self.check_on_border()
 
     def turn(self, angle):
         self.image = pygame.transform.rotate(self.original_image, self.direction + angle)

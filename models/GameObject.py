@@ -29,7 +29,7 @@ class GameObject(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x, y))
 
     def check_on_border(self):
-        width, height = self.screen.get_size()
+        (width, height) = self.screen.get_size()
 
         print(self.x, self.y, self.direction, self.speed)
 
@@ -40,7 +40,11 @@ class GameObject(pygame.sprite.Sprite):
             self.y = (self.y + height) % height
 
     def update(self):
-        pass
+        self.x += self.speed * self.vel_dir[0]
+        self.y -= self.speed * self.vel_dir[1]
+        self.rect = self.image.get_rect(center=(self.x, self.y))
+
+        self.check_on_border()
 
     def destroy(self):
         pass
