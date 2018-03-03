@@ -31,8 +31,6 @@ class GameObject(pygame.sprite.Sprite):
     def check_on_border(self):
         (width, height) = self.screen.get_size()
 
-        print(self.x, self.y, self.direction, self.speed)
-
         if self.x < 0 or self.x > width:
             self.x = (self.x + width) % width
 

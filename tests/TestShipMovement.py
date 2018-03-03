@@ -4,19 +4,17 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import pygame
 from math import cos, sin, radians
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from models.Ship import Ship
 
 if __name__ == '__main__':
     FPS = 60
     SCREEN_W = 640
     SCREEN_H = 480
+    SIZE = (SCREEN_W, SCREEN_H)
 
-    size = (SCREEN_W, SCREEN_H)
+    pygame.init()
+    screen = pygame.display.set_mode(SIZE)
     clock = pygame.time.Clock()
-
-    screen = pygame.display.set_mode(size)
     pygame.display.set_caption('Ship Testing')
 
     # Creates a sprite list for drawing
