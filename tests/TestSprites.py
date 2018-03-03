@@ -1,14 +1,13 @@
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
 import pygame
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from models.Ship import Ship
 from models.BigAsteroid import BigAsteroid
 from models.MediumAsteroid import MediumAsteroid
 from models.SmallAsteroid import SmallAsteroid
 from models.Saucer import Saucer
-
 
 if __name__ == '__main__':
     pygame.init()  # Prepare the PyGame module for use
@@ -16,9 +15,9 @@ if __name__ == '__main__':
 
     # Crating a saucer object and list as sprite
     ship = Ship(main_surface, 20, 20)
-    big_asteroid = BigAsteroid(60, 40, main_surface)
-    medium_asteroid = MediumAsteroid(60, 160, main_surface)
-    small_asteroid = SmallAsteroid(60, 240, main_surface)
+    big_asteroid = BigAsteroid(main_surface)
+    medium_asteroid = MediumAsteroid(main_surface)
+    small_asteroid = SmallAsteroid(main_surface)
     saucer = Saucer(200, 30, main_surface)
 
     ships_group = pygame.sprite.Group()
