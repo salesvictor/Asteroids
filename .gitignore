@@ -1,5 +1,9 @@
-#Ignore all archives from Python Virtual Enviroment 
+#Ignore all archives from Python Virtual Enviroment
 venv/
+
+# Ignore created pycache files
+__pycache__/
+*.pyc
 
 #Pycharm
 .idea/
