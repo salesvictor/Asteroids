@@ -1,9 +1,9 @@
 import os
 import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 import pygame
 from models.GameObject import GameObject
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 
 class Ship(GameObject):

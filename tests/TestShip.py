@@ -1,6 +1,5 @@
 import pygame
 from math import cos, sin, radians
-
 from models.Ship import Ship
 
 if __name__ == '__main__':

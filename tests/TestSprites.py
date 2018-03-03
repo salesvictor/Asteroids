@@ -1,21 +1,21 @@
 import os
 import sys
-import pygame
-
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from models.GameObject import GameObject
+
+import pygame
 from models.Ship import Ship
 from models.BigAsteroid import BigAsteroid
 from models.MediumAsteroid import MediumAsteroid
 from models.SmallAsteroid import SmallAsteroid
 from models.Saucer import Saucer
 
-def test_sprites():
-    pygame.init() # Prepare the PyGame module for use
+
+if __name__ == '__main__':
+    pygame.init()  # Prepare the PyGame module for use
     main_surface = pygame.display.set_mode((800, 640))
 
     # Crating a saucer object and list as sprite
-    ship = Ship(20, 20, main_surface)
+    ship = Ship(main_surface, 20, 20)
     big_asteroid = BigAsteroid(60, 40, main_surface)
     medium_asteroid = MediumAsteroid(60, 160, main_surface)
     small_asteroid = SmallAsteroid(60, 240, main_surface)
@@ -36,8 +36,8 @@ def test_sprites():
     while True:
         # Look for an event from keyboard, mouse, joystick, etc.
         ev = pygame.event.poll()
-        if ev.type == pygame.QUIT: # Window close button clicked?
-            break # Leave game loop
+        if ev.type == pygame.QUIT:  # Window close button clicked?
+            break  # Leave game loop
 
         main_surface.fill((0, 0, 0))
         ships_group.draw(main_surface)
@@ -50,5 +50,3 @@ def test_sprites():
         pygame.display.flip()
 
     pygame.quit()
-
-test_sprites()
