@@ -47,4 +47,4 @@ class Asteroid(GameObject):
 
         self.direction += self.ANGLE_SPEED
         self.image = pg.transform.rotate(self.original_image, self.direction)
-        self.rect = self.image.get_rect(center=(self.x, self.y))
+        self.rect = self.image.get_rect(center=self.rect.center)
