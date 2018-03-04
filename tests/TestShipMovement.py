@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     screen = pg.display.set_mode(SIZE)
     pg.display.set_caption('Ship Movement Testing')
-    my_font = pg.font.SysFont('Times New Roman', 15)
+    my_font = pg.font.SysFont('Times New Roman', 20)
     clock = pg.time.Clock()
 
     # Creates a sprite list for drawing
