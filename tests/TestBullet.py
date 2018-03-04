@@ -5,7 +5,7 @@ from models.Bullet import Bullet
 if __name__ == '__main__':
     FPS = 60
     SCREEN_W = 800
-    SCREEN_H = 640
+    SCREEN_H = 600
 
     size = (SCREEN_W, SCREEN_H)
     clock = pygame.time.Clock()

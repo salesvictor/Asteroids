@@ -6,7 +6,7 @@ from models.BigAsteroid import BigAsteroid
 if __name__ == '__main__':
     FPS = 60
     SCREEN_W = 800
-    SCREEN_H = 640
+    SCREEN_H = 600
     SIZE = (SCREEN_W, SCREEN_H)
 
     pygame.init()

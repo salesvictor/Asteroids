@@ -4,8 +4,8 @@ from models.Ship import Ship
 
 if __name__ == '__main__':
     FPS = 60
-    SCREEN_W = 640
-    SCREEN_H = 480
+    SCREEN_W = 800
+    SCREEN_H = 600
 
     size = (SCREEN_W, SCREEN_H)
     clock = pygame.time.Clock()
