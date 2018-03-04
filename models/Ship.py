@@ -1,4 +1,4 @@
-import pygame
+import pygame as pg
 from models.GameObject import GameObject
 from models.Bullet import Bullet
 
@@ -14,7 +14,7 @@ class Ship(GameObject):
         self.shot_bullets = []
 
     def turn(self, angle):
-        self.image = pygame.transform.rotate(self.original_image, self.direction + angle)
+        self.image = pg.transform.rotate(self.original_image, self.direction + angle)
         self.direction += angle
         self.rect = self.image.get_rect(center=(self.x, self.y))
 

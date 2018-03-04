@@ -1,4 +1,4 @@
-import pygame
+import pygame as pg
 from math import cos, sin, radians, log
 from random import randint, lognormvariate, uniform
 from models.GameObject import GameObject
@@ -46,5 +46,5 @@ class Asteroid(GameObject):
         super().update()
 
         self.direction += self.ANGLE_SPEED
-        self.image = pygame.transform.rotate(self.original_image, self.direction)
+        self.image = pg.transform.rotate(self.original_image, self.direction)
         self.rect = self.image.get_rect(center=(self.x, self.y))
