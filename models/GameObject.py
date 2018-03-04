@@ -6,6 +6,8 @@ class GameObject(pg.sprite.Sprite):
 
     def __init__(self, x, y, direction, vel_dir, speed, screen, img_name, img_factor):
         super().__init__()
+        self.x = x
+        self.y = y
         self.speed = speed
         self.screen = screen
         self.vel_dir = vel_dir
@@ -31,17 +33,22 @@ class GameObject(pg.sprite.Sprite):
 
         if self.rect.right < 0:
             self.rect.left = width
+            (self.x, self.y) = self.rect.center
         if self.rect.left > width:
             self.rect.right = 0
+            (self.x, self.y) = self.rect.center
 
-        if self.rect.top < 0:
-            self.rect.bottom = height
-        if self.rect.bottom > height:
-            self.rect.top = 0
+        if self.rect.bottom < 0:
+            self.rect.top = height
+            (self.x, self.y) = self.rect.center
+        if self.rect.top > height:
+            self.rect.bottom = 0
+            (self.x, self.y) = self.rect.center
 
     def update(self):
-        self.rect.x += self.speed * self.vel_dir[0]
-        self.rect.y -= self.speed * self.vel_dir[1]
+        self.x += self.speed * self.vel_dir[0]
+        self.y -= self.speed * self.vel_dir[1]
+        self.rect.center = (self.x, self.y)
         self.direction = (self.direction + 360) % 360
 
         self.check_on_border()
