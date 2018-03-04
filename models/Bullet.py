@@ -1,5 +1,4 @@
 from math import sin, cos, radians
-import pygame
 from models.GameObject import GameObject
 
 
