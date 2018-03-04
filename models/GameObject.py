@@ -1,5 +1,5 @@
 import os
-import pygame
+import pygame as pg
 
 
 class GameObject(pygame.sprite.Sprite):
@@ -16,14 +16,14 @@ class GameObject(pygame.sprite.Sprite):
         # Initializing ship image in graphics folder
         path = os.path.dirname(__file__)
         path = os.path.join(path, os.pardir, 'graphics', img_name)
-        self.original_image = pygame.image.load(path)
+        self.original_image = pg.image.load(path).convert()
 
         # Resizing image
         img_size = self.original_image.get_rect().size
         new_img_size = []
         for dimension in img_size:
             new_img_size.append(int(img_factor * dimension))
-        self.original_image = pygame.transform.scale(self.original_image, new_img_size)
+        self.original_image = pg.transform.scale(self.original_image, new_img_size)
         self.image = self.original_image
 
         self.rect = self.image.get_rect(center=(x, y))
@@ -31,11 +31,15 @@ class GameObject(pygame.sprite.Sprite):
     def check_on_border(self):
         (width, height) = self.screen.get_size()
 
-        if self.x < 0 or self.x > width:
-            self.x = (self.x + width) % width
+        if self.rect.right < 0:
+            self.rect.left = width
+        if self.rect.left > width:
+            self.rect.right = 0
 
-        if self.y < 0 or self.y > height:
-            self.y = (self.y + height) % height
+        if self.rect.top < 0:
+            self.rect.bottom = height
+        if self.rect.bottom > height:
+            self.rect.top = 0
 
     def update(self):
         self.x += self.speed * self.vel_dir[0]
