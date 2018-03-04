@@ -2,12 +2,10 @@ import os
 import pygame as pg
 
 
-class GameObject(pygame.sprite.Sprite):
+class GameObject(pg.sprite.Sprite):
 
     def __init__(self, x, y, direction, vel_dir, speed, screen, img_name, img_factor):
         super().__init__()
-        self.x = x
-        self.y = y
         self.speed = speed
         self.screen = screen
         self.vel_dir = vel_dir
@@ -42,10 +40,9 @@ class GameObject(pygame.sprite.Sprite):
             self.rect.top = 0
 
     def update(self):
-        self.x += self.speed * self.vel_dir[0]
-        self.y -= self.speed * self.vel_dir[1]
+        self.rect.x += self.speed * self.vel_dir[0]
+        self.rect.y -= self.speed * self.vel_dir[1]
         self.direction = (self.direction + 360) % 360
-        self.rect = self.image.get_rect(center=(self.x, self.y))
 
         self.check_on_border()
 
