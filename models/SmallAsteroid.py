@@ -1,4 +1,3 @@
-import pygame
 from models.Asteroid import Asteroid
 
 
