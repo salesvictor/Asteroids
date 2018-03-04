@@ -40,9 +40,13 @@ class GameObject(pygame.sprite.Sprite):
     def update(self):
         self.x += self.speed * self.vel_dir[0]
         self.y -= self.speed * self.vel_dir[1]
+        self.direction = (self.direction + 360) % 360
         self.rect = self.image.get_rect(center=(self.x, self.y))
 
         self.check_on_border()
 
     def destroy(self):
+        pass
+
+    def get_vel_angle(self):
         pass

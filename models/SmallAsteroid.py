@@ -1,14 +1,14 @@
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
+import pygame
 from models.Asteroid import Asteroid
+
 
 class SmallAsteroid(Asteroid):
 
-    def __init__(self, screen):
-        super().__init__(screen, 0.09)
+    def __init__(self, screen, x=None, y=None, speed=None, vel_dir=None):
+        super().__init__(screen, 0.09, x, y, speed, vel_dir)
 
     def destroy(self):
-        # TODO(Victor) write destroy
-        pass
+        self.kill()
+
+        # TODO(Victor) Find a reasonable return. SEE tests/TestAsteroidsDestruction
+        return None
