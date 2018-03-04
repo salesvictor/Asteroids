@@ -9,9 +9,12 @@ if __name__ == '__main__':
     SIZE = (SCREEN_W, SCREEN_H)
 
     pygame.init()
+    pygame.font.init()
+
     screen = pygame.display.set_mode(SIZE)
+    pygame.display.set_caption('Ship Movement Testing')
+    my_font = pygame.font.SysFont('Times New Roman', 15)
     clock = pygame.time.Clock()
-    pygame.display.set_caption('Ship Testing')
 
     # Creates a sprite list for drawing
     sprites = pygame.sprite.Group()
@@ -28,15 +31,18 @@ if __name__ == '__main__':
             if ev.key == pygame.K_ESCAPE:
                 break
 
-        print(f'(pos, center, direction, speed, vel_dir) = '
-              f'(({player.x, player.y}), {player.rect.center}, '
-              f'{player.direction}, {player.speed:.2f}, '
-              f'({player.vel_dir[0]:.2f}, {player.vel_dir[1]:.2f}))')
+        debug_text = (f'(pos, center, direction, speed, vel_dir) = '
+                      f'(({player.x:3.0f}, {player.y:3.0f}), {player.rect.center}, '
+                      f'{player.direction:3d}, {player.speed:3.2f}, '
+                      f'({player.vel_dir[0]:3.2f}, {player.vel_dir[1]:3.2f}))')
+        text_surface = my_font.render(debug_text, True, (255, 255, 255))
+        (font_w, font_h) = text_surface.get_size()
 
         screen.fill((0, 0, 0))
 
         sprites.update()
         sprites.draw(screen)
+        screen.blit(text_surface, ((SCREEN_W-font_w)/2, 0))
         pygame.display.flip()
         clock.tick(FPS)
 
