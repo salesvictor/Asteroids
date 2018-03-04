@@ -25,7 +25,7 @@ class Ship(GameObject):
     def stop(self):
         self. speed = max(self.speed-self.DEACCEL, 0)
 
-    def shot(self):
+    def shoot(self):
         if not self.shot_bullets or self.shot_bullets[-1].age > self.SHOT_DELAY:
             bullet = Bullet(self.screen, self.x, self.y, -self.direction)
             self.shot_bullets.append(bullet)

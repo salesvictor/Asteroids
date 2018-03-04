@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
         if ev.type == pygame.KEYUP:
             if ev.key == pygame.K_SPACE:
-                player.shot()
+                player.shoot()
                 sprites.add(player.shot_bullets[-1])
 
         screen.fill((0, 0, 0))
