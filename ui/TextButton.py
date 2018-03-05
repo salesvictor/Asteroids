@@ -1,4 +1,4 @@
-from TextBox import *
+from TextBox import TextBox
 
 
 class TextButton(TextBox):

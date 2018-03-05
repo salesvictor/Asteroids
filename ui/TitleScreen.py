@@ -1,35 +1,58 @@
-from ScreenBase import *
-from TextButton import *
+import pygame
+
+from ui.ScreenBase import ScreenBase
+from ui.GameScreen import GameScreen
+from ui.TextBox import TextBox
+from ui.TextButton import TextButton
+from models.SmallAsteroid import SmallAsteroid
+from models.MediumAsteroid import MediumAsteroid
+from models.BigAsteroid import BigAsteroid
 
 
 class TitleScreen(ScreenBase):
-    bg_color = (0, 0, 0)
+    GAME_TITLE_FONT_SIZE = 96
+    BUTTON_FONT_SIZE = 24
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, display):
+        super().__init__(display)
 
-        game_title_center = (400, 200)
-        game_title_font_size = 96
-        play_button_center = (400, 350)
-        score_button_center = (400, 400)
-        button_font_size = 24
+        # Calculate position of game title and buttons
+        self.display_width_factor = display.get_width()/800
+        self.display_height_factor = display.get_height()/640
+        self.GAME_TITLE_CENTER = (self.display_width_factor*400, self.display_height_factor*200)
+        self.PLAY_BUTTON_CENTER = (self.display_width_factor*400, self.display_height_factor*350)
+        self.SCORE_BUTTON_CENTER = (self.display_width_factor*400, self.display_height_factor*400)
 
-        self.game_title = TextBox(game_title_center, game_title_font_size, "ASTEROIDS")
-        self.play_button = TextButton(play_button_center, button_font_size, "PLAY GAME")
-        self.score_button = TextButton(score_button_center, button_font_size, "HIGH SCORES")
+        # Create game title and buttons
+        self.game_title = TextBox(self.GAME_TITLE_CENTER, self.GAME_TITLE_FONT_SIZE, "ASTEROIDS")
+        self.play_button = TextButton(self.PLAY_BUTTON_CENTER, self.BUTTON_FONT_SIZE, "PLAY GAME")
+        self.score_button = TextButton(self.SCORE_BUTTON_CENTER, self.BUTTON_FONT_SIZE, "HIGH SCORES")
+
+        # Create background asteroids
+        self.asteroids = pygame.sprite.Group()
+        for i in range(12):
+            if i % 3 == 0:
+                self.asteroids.add(SmallAsteroid(display))
+            elif i % 3 == 1:
+                self.asteroids.add(MediumAsteroid(display))
+            else:
+                self.asteroids.add(BigAsteroid(display))
 
     def process_input(self, events, pressed_keys):
         self.play_button.process_input(events)
+
+    def update(self):
         if self.play_button.get_clicked():
-            self.terminate()
+            self.switch_to_scene(GameScreen(self.display))
             return
 
-    def render(self, screen):
-        # TODO: write actual redering
-        bg_color = (0, 0, 0)
+        self.asteroids.update()
 
-        screen.fill(bg_color)
+    def render(self):
+        self.display.fill(self.BG_COLOR)
 
-        self.game_title.render(True, (255,255,255), screen)
-        self.play_button.render(True, (255,255,255), screen)
-        self.score_button.render(True, (255,255,255), screen)
+        self.game_title.render(True, (255, 255, 255), self.display)
+        self.play_button.render(True, (255, 255, 255), self.display)
+        self.score_button.render(True, (255, 255, 255), self.display)
+
+        self.asteroids.draw(self.display)
