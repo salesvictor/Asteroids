@@ -3,7 +3,7 @@ import pygame
 from TitleScreen import TitleScreen
 
 
-def main(args, fps, starting_scene):
+def main(args, fps):
     if not args:
         size = (800, 640)
     elif len(args) == 2:
@@ -15,8 +15,7 @@ def main(args, fps, starting_scene):
     pygame.init()
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
-
-    active_scene = starting_scene
+    active_scene = TitleScreen(screen)
 
     while active_scene is not None:
         pressed_keys = pygame.key.get_pressed()
@@ -43,9 +42,8 @@ def main(args, fps, starting_scene):
 
         # Process the filtered_events and update the frame
         active_scene.process_input(filtered_events, pressed_keys)
-        # TODO: Implement update
-        # active_scene.update()
-        active_scene.render(screen)
+        active_scene.update()
+        active_scene.render()
 
         active_scene = active_scene.next
 
@@ -54,4 +52,4 @@ def main(args, fps, starting_scene):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:], 60, TitleScreen())
+    main(sys.argv[1:], 60)
