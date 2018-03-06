@@ -11,7 +11,12 @@ class Bullet(GameObject):
         self.age = 0
 
     def update(self):
-        super().update()
+        self.x += self.speed * self.vel_dir[0]
+        self.y += self.speed * self.vel_dir[1]
+        self.rect.center = (self.x, self.y)
+        self.direction = (self.direction + 360) % 360
+
+        self.check_on_border()
 
         self.age += 1
         if self.age > self.LIFE_TIME:
