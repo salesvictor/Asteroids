@@ -1,21 +1,22 @@
-import pygame
-
 from models.Ship import Ship
+
 from ui.TextBox import TextBox
 from ui.LivesBar import LivesBar
 
 
 class Player:
+class Player(Ship):
     INITIAL_LIVES = 3
     MAX_LIVES = 5
     NAME_BOX_FONT_SIZE = 20
     SCORE_BOX_FONT_SIZE = 20
 
     def __init__(self, screen, x, y, number):
+        super().__init__(screen, x, y)
+
         self.lives = self.INITIAL_LIVES
         self.score = 0
         self.number = number
-        self.name = "PLAYER{}".format(number)
         self.screen = screen
 
         # Calculate position of text boxes and lives bar
