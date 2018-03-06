@@ -17,6 +17,7 @@ class GameObject(pg.sprite.Sprite):
         path = os.path.dirname(__file__)
         path = os.path.join(path, os.pardir, 'graphics', img_name)
         self.original_image = pg.image.load(path).convert()
+        self.original_image.set_colorkey((0, 0, 0))
 
         # Resizing image
         img_size = self.original_image.get_rect().size
@@ -25,7 +26,6 @@ class GameObject(pg.sprite.Sprite):
             new_img_size.append(int(img_factor * dimension))
         self.original_image = pg.transform.scale(self.original_image, new_img_size)
         self.image = self.original_image.copy()
-        self.image.set_colorkey((0, 0, 0))
 
         self.rect = self.image.get_rect(center=(x, y))
 
