@@ -4,7 +4,6 @@ from ui.TextBox import TextBox
 from ui.LivesBar import LivesBar
 
 
-class Player:
 class Player(Ship):
     INITIAL_LIVES = 3
     MAX_LIVES = 5
@@ -17,6 +16,7 @@ class Player(Ship):
         self.lives = self.INITIAL_LIVES
         self.score = 0
         self.number = number
+        self.name = f"PLAYER{number}"
         self.screen = screen
 
         # Calculate position of text boxes and lives bar
@@ -28,21 +28,16 @@ class Player(Ship):
 
         # Create text boxes and lives bar
         self.name_box = TextBox(self.NAME_BOX_CENTER, self.NAME_BOX_FONT_SIZE, self.name)
-        self.score_box = TextBox(self.SCORE_BOX_CENTER, self.SCORE_BOX_FONT_SIZE, "{}".format(self.score))
+        self.score_box = TextBox(self.SCORE_BOX_CENTER, self.SCORE_BOX_FONT_SIZE, f"{self.score}")
         self.lives_bar = LivesBar(self.LIVES_BAR_CENTER, self.lives)
 
-        # Create ship
-        self.ship = Ship(screen, x, y)
-        self.sprites = pygame.sprite.Group()
-        self.sprites.add(self.ship)
-
     def update(self):
-        self.score_box.set_dialogue("{}".format(self.score))
+        self.score_box.set_dialogue(f"{self.score}")
         self.lives_bar.set_lives(self.lives)
-        self.sprites.update()
+
+        super().update()
 
     def render(self):
         self.name_box.render(True, (255, 255, 255), self.screen)
         self.score_box.render(True, (255, 255, 255), self.screen)
         self.lives_bar.render(self.screen)
-        self.sprites.draw(self.screen)
