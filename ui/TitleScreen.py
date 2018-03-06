@@ -38,10 +38,11 @@ class TitleScreen(ScreenBase):
             else:
                 self.asteroids.add(BigAsteroid(display))
 
-    def process_input(self, events, pressed_keys):
-        self.play_button.process_input(events)
+    def process_input(self):
+        event = super().process_input()
+        self.play_button.process_input(event)
 
-    def update(self):
+    def update(self, event):
         if self.play_button.get_clicked():
             self.switch_to_scene(GameScreen(self.display))
             return
