@@ -1,4 +1,4 @@
-import pygame
+import pygame as pg
 
 from ui.ScreenBase import ScreenBase
 from player.UserPlayer import UserPlayer
@@ -13,9 +13,11 @@ class GameScreen(ScreenBase):
 
         # Create player
         self.player = UserPlayer(display, display.get_width()/2, display.get_height()/2, 1)
+        self.players = pg.sprite.Group()
+        self.players.add(self.player)
 
         # Create background asteroids
-        self.asteroids = pygame.sprite.Group()
+        self.asteroids = pg.sprite.Group()
         for i in range(16):
             if i % 3 == 0:
                 self.asteroids.add(SmallAsteroid(display))
@@ -24,14 +26,15 @@ class GameScreen(ScreenBase):
             else:
                 self.asteroids.add(BigAsteroid(display))
 
-    def process_input(self, events, pressed_keys):
-        self.player.process_input(events, pressed_keys)
-
-    def update(self):
-        self.player.update()
+    def update(self, event):
+        self.players.update(event)
         self.asteroids.update()
 
     def render(self):
         self.display.fill(self.BG_COLOR)
-        self.player.render()
+        for player in self.players:
+            player.render()
+        self.players.draw(self.display)
+        for player in self.players:
+            player.bullets_sprite.draw(self.display)
         self.asteroids.draw(self.display)
