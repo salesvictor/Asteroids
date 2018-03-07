@@ -23,8 +23,8 @@ class Player(Ship):
         self.display_width_factor = screen.get_width() / 800
         self.display_height_factor = screen.get_height() / 640
         self.NAME_BOX_CENTER = (self.display_width_factor * 100, self.display_height_factor * 25)
-        self.SCORE_BOX_CENTER = (self.display_width_factor * 100, self.display_height_factor * 50)
-        self.LIVES_BAR_CENTER = (self.display_width_factor * 100, self.display_height_factor * 80)
+        self.SCORE_BOX_CENTER = (self.NAME_BOX_CENTER[0], self.NAME_BOX_CENTER[1] + 25)
+        self.LIVES_BAR_CENTER = (self.SCORE_BOX_CENTER[0], self.SCORE_BOX_CENTER[1] + 30)
 
         # Create text boxes and lives bar
         self.name_box = TextBox(self.NAME_BOX_CENTER, self.NAME_BOX_FONT_SIZE, self.name)

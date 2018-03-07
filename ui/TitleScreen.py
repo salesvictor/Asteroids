@@ -20,8 +20,8 @@ class TitleScreen(ScreenBase):
         self.display_width_factor = display.get_width()/800
         self.display_height_factor = display.get_height()/640
         self.GAME_TITLE_CENTER = (self.display_width_factor*400, self.display_height_factor*200)
-        self.PLAY_BUTTON_CENTER = (self.display_width_factor*400, self.display_height_factor*350)
-        self.SCORE_BUTTON_CENTER = (self.display_width_factor*400, self.display_height_factor*400)
+        self.PLAY_BUTTON_CENTER = (self.GAME_TITLE_CENTER[0], self.GAME_TITLE_CENTER[1]+self.display_height_factor*150)
+        self.SCORE_BUTTON_CENTER = (self.PLAY_BUTTON_CENTER[0], self.PLAY_BUTTON_CENTER[1]+50)
 
         # Create game title and buttons
         self.game_title = TextBox(self.GAME_TITLE_CENTER, self.GAME_TITLE_FONT_SIZE, "ASTEROIDS")
