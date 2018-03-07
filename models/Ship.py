@@ -6,8 +6,8 @@ from models.Bullet import Bullet
 
 class Ship(GameObject):
     ACCEL = 0.2
-    DEACCEL = 0.09
-    MAX_SPEED = 4.5
+    DEACCEL = 0.005
+    MAX_SPEED = 4
     SHOT_DELAY = 5
     TURN_SPEED = -5
 
