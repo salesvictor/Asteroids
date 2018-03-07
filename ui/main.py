@@ -7,7 +7,7 @@ from ui.TitleScreen import TitleScreen
 def main(args, fps):
 
     if not args:
-        size = (640, 480)
+        size = (800, 620)
     elif len(args) == 2:
         size = (float(args[1]), float(args[2]))
     else:

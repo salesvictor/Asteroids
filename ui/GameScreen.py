@@ -18,7 +18,7 @@ class GameScreen(ScreenBase):
 
         # Create background asteroids
         self.asteroids = pg.sprite.Group()
-        for i in range(16):
+        for i in range(12):
             if i % 3 == 0:
                 self.asteroids.add(SmallAsteroid(display))
             elif i % 3 == 1:
