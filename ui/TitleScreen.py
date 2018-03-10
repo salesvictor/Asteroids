@@ -2,6 +2,8 @@ import pygame
 
 from ui.ScreenBase import ScreenBase
 from ui.GameScreen import GameScreen
+# TODO: Check if there is a better way to deal with cyclic imports
+import HighScoresScreen
 from ui.TextBox import TextBox
 from ui.TextButton import TextButton
 from models.SmallAsteroid import SmallAsteroid
@@ -41,11 +43,15 @@ class TitleScreen(ScreenBase):
     def process_input(self):
         event = super().process_input()
         self.play_button.process_input(event)
+        self.score_button.process_input(event)
 
     def update(self, event):
         if self.play_button.get_clicked():
             self.switch_to_scene(GameScreen(self.display))
             return
+
+        if self.score_button.get_clicked():
+            self.switch_to_scene(HighScoresScreen.HighScoresScreen(self.display))
 
         self.asteroids.update()
 

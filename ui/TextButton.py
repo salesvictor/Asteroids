@@ -18,4 +18,6 @@ class TextButton(TextBox):
                 self.clicked = True
 
     def get_clicked(self):
-        return self.clicked
+        was_clicked = self.clicked
+        self.clicked = False
+        return was_clicked
