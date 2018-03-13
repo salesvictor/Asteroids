@@ -5,6 +5,7 @@ from models.Bullet import Bullet
 
 
 class Ship(GameObject):
+    #  Movement constants
     ACCEL = 0.2
     DEACCEL = 0.005
     MAX_SPEED = 3
@@ -15,20 +16,24 @@ class Ship(GameObject):
         super().__init__(x, y, 0, (0, 0), 0, screen, 'ship.png', 0.1)
         self.shot_bullets = pg.sprite.Group()
 
+    #  Update the ship and its bullets movement
     def update(self):
         self.speed = max(self.speed - self.DEACCEL, 0)
 
         self.shot_bullets.update()
         super().update()
 
+    #  Rotate the ship
     def turn(self, angle):
         self.image = pg.transform.rotate(self.original_image, self.direction + angle)
         self.rect = self.image.get_rect(center=(self.x, self.y))
         self.direction += angle
 
+    #  Check for its bullets collisions and kill the objects colliding
     def check_bullets_collision(self, sprites_group):
         pg.sprite.groupcollide(self.shot_bullets, sprites_group, True, True, pg.sprite.collide_mask)
 
+    #  Cast a bullet in the direction the ship is pointing
     def shoot(self):
         if len(self.shot_bullets) == 0 or self.shot_bullets.sprites()[-1].age > self.SHOT_DELAY:
             bullet = Bullet(self.screen, self.x, self.y, -self.direction)

@@ -29,6 +29,7 @@ class GameObject(pg.sprite.Sprite):
 
         self.rect = self.image.get_rect(center=(x, y))
 
+    #  Make the object reappear in the opposite side of screen
     def check_on_border(self):
         (width, height) = self.screen.get_size()
 
@@ -46,6 +47,7 @@ class GameObject(pg.sprite.Sprite):
             self.rect.bottom = 0
             (self.x, self.y) = self.rect.center
 
+    #  Movement updating of the object
     def update(self):
         self.x += self.speed * self.vel_dir[0]
         self.y -= self.speed * self.vel_dir[1]

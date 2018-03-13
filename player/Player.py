@@ -5,6 +5,7 @@ from ui.LivesBar import LivesBar
 
 
 class Player(Ship):
+    #  General constants
     INITIAL_LIVES = 3
     MAX_LIVES = 5
     NAME_BOX_FONT_SIZE = 20
@@ -34,21 +35,23 @@ class Player(Ship):
         self.lives_bar = LivesBar(self.LIVES_BAR_CENTER, self.lives)
 
     def update(self, event=None):
+        # Change the score displayed
         self.score_box.set_dialogue(f"{self.score}")
 
         super().update()
 
+    # Render the text boxes and lives bar
     def render(self):
         self.name_box.render(True, (255, 255, 255), self.screen)
         self.score_box.render(True, (255, 255, 255), self.screen)
         self.lives_bar.render(self.screen)
 
+    # Eliminates the player from the current groups
     def kill(self):
-        groups = self.groups()
-
         super().kill()
-
         self.lives -= 1
+
+        # If lives are reduced to zero, player permanently dies
         if self.lives == 0:
             self.lives_bar.set_lives(self.lives)
 

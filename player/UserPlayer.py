@@ -8,6 +8,7 @@ class UserPlayer(Player):
     def __init__(self, screen, x, y, number, initial_lives=Player.INITIAL_LIVES):
         super().__init__(screen, x, y, number, initial_lives)
 
+    # Update based on keyboard events
     def update(self, event):
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_SPACE:

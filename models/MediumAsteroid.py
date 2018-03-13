@@ -10,8 +10,8 @@ class MediumAsteroid(Asteroid):
         super().__init__(screen, 0.25, x, y, speed, vel_dir)
 
     def kill(self):
-        groups = self.groups()
-        super().kill()
+        groups = self.groups()  # Store the groups on which the asteroid was
+        super().kill()  # Exclude the asteroid form the groups
 
         spread_angle = gauss(0, 45)
         spread_speed = gauss(0, 1)
@@ -21,6 +21,7 @@ class MediumAsteroid(Asteroid):
         speed1 = self.speed + spread_speed
         speed2 = self.speed - spread_speed
 
+        # Add two lesser asteroids to the groups
         for group in groups:
             group.add([SmallAsteroid(self.screen, self.x, self.y, speed1, vel_dir1),
                        SmallAsteroid(self.screen, self.x, self.y, speed2, vel_dir2)])
