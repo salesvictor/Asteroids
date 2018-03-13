@@ -7,7 +7,7 @@ class Bullet(GameObject):
 
     def __init__(self, screen,  x, y, direction):
         super().__init__(x, y, direction, (cos(radians(direction)), sin(radians(direction))),
-                         10, screen, 'bullet.png', 0.5)
+                         10, screen, 'bullet.png', 0.75)
         self.age = 0
 
     def update(self):

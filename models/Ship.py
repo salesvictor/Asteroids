@@ -7,9 +7,9 @@ from models.Bullet import Bullet
 class Ship(GameObject):
     ACCEL = 0.2
     DEACCEL = 0.005
-    MAX_SPEED = 4
+    MAX_SPEED = 3
     SHOT_DELAY = 5
-    TURN_SPEED = -5
+    TURN_SPEED = -2
 
     def __init__(self, screen, x, y):
         super().__init__(x, y, 0, (0, 0), 0, screen, 'ship.png', 0.1)
