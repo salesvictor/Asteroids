@@ -1,6 +1,7 @@
 import pygame as pg
 
 from ui.ScreenBase import ScreenBase
+from ui.GameOverScreen import GameOverScreen
 from player.UserPlayer import UserPlayer
 from models.SmallAsteroid import SmallAsteroid
 from models.MediumAsteroid import MediumAsteroid
@@ -34,6 +35,8 @@ class GameScreen(ScreenBase):
 
         pg.sprite.groupcollide(self.visible_players, self.asteroids, True, True, pg.sprite.collide_mask)
 
+        # Look for non-permanently-dead players (which aren't within any group of sprites)
+        # and initialize new players to them
         for player in self.players:
             if player not in self.visible_players and player.lives > 0:
                 reset_player = UserPlayer(player.screen, player.initialx, player.initialy, player.number, player.lives)
@@ -45,6 +48,17 @@ class GameScreen(ScreenBase):
         self.visible_players.update(event)
         self.asteroids.update()
 
+        # Check if all players have permanently died and, if so, ends the game
+        game_over = True
+        for player in self.players:
+            if player.lives > 0:
+                game_over = False
+                break
+
+        if game_over:
+            self.switch_to_scene(GameOverScreen(self.display, self.players, self.asteroids))
+
+    # Render all text boxes and draw all sprites
     def render(self):
         self.display.fill(self.BG_COLOR)
         for player in self.players:

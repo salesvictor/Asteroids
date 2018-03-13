@@ -39,7 +39,7 @@ class HighScoresScreen(ScreenBase):
         self.score_text_box = []
 
         # Create score communicator
-        self.score_communicator = ScoreCommunicator("../db/score_db.csv")
+        self.score_communicator = ScoreCommunicator("../db/scores_db.csv")
 
         # Create background asteroids
         self.asteroids = pygame.sprite.Group()
@@ -80,7 +80,7 @@ class HighScoresScreen(ScreenBase):
             self.score_text_box.append(TextBox(center, self.SCORE_FONT_SIZE, dialogue))
 
             rows_number += 1
-            if rows_number >= 10:
+            if rows_number >= 9:
                 break
 
         self.asteroids.update()

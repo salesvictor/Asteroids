@@ -1,7 +1,7 @@
 import pygame
 
 from ui.ScreenBase import ScreenBase
-from ui.GameScreen import GameScreen
+import GameScreen
 # TODO: Check if there is a better way to deal with cyclic imports
 import HighScoresScreen
 from ui.TextBox import TextBox
@@ -47,7 +47,7 @@ class TitleScreen(ScreenBase):
 
     def update(self, event):
         if self.play_button.get_clicked():
-            self.switch_to_scene(GameScreen(self.display))
+            self.switch_to_scene(GameScreen.GameScreen(self.display))
             return
 
         if self.score_button.get_clicked():
