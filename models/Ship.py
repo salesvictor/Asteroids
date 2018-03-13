@@ -13,13 +13,12 @@ class Ship(GameObject):
 
     def __init__(self, screen, x, y):
         super().__init__(x, y, 0, (0, 0), 0, screen, 'ship.png', 0.1)
-        self.shot_bullets = []
-        self.bullets_sprite = pg.sprite.Group()
+        self.shot_bullets = pg.sprite.Group()
 
     def update(self):
         self.speed = max(self.speed - self.DEACCEL, 0)
 
-        self.bullets_sprite.update()
+        self.shot_bullets.update()
         super().update()
 
     def turn(self, angle):
@@ -27,12 +26,14 @@ class Ship(GameObject):
         self.rect = self.image.get_rect(center=(self.x, self.y))
         self.direction += angle
 
-    def shoot(self):
-        if not self.shot_bullets or self.shot_bullets[-1].age > self.SHOT_DELAY:
-            bullet = Bullet(self.screen, self.x, self.y, -self.direction)
-            self.shot_bullets.append(bullet)
-            self.bullets_sprite.add(bullet)
+    def check_bullets_collision(self, sprites_group):
+        pg.sprite.groupcollide(self.shot_bullets, sprites_group, True, True, pg.sprite.collide_mask)
 
-    def destroy(self):
-        # TODO(Victor) write destroy
-        pass
+    def shoot(self):
+        if len(self.shot_bullets) == 0 or self.shot_bullets.sprites()[-1].age > self.SHOT_DELAY:
+            bullet = Bullet(self.screen, self.x, self.y, -self.direction)
+            self.shot_bullets.add(bullet)
+
+    def kill(self):
+        super().kill()
+        # TODO(Victor) write kill

@@ -10,10 +10,12 @@ class Player(Ship):
     NAME_BOX_FONT_SIZE = 20
     SCORE_BOX_FONT_SIZE = 20
 
-    def __init__(self, screen, x, y, number):
+    def __init__(self, screen, x, y, number, initial_lives=INITIAL_LIVES):
         super().__init__(screen, x, y)
+        self.initialx = x
+        self.initialy = y
 
-        self.lives = self.INITIAL_LIVES
+        self.lives = initial_lives
         self.score = 0
         self.number = number
         self.name = f"PLAYER{number}"
@@ -31,9 +33,8 @@ class Player(Ship):
         self.score_box = TextBox(self.SCORE_BOX_CENTER, self.SCORE_BOX_FONT_SIZE, f"{self.score}")
         self.lives_bar = LivesBar(self.LIVES_BAR_CENTER, self.lives)
 
-    def update(self):
+    def update(self, event=None):
         self.score_box.set_dialogue(f"{self.score}")
-        self.lives_bar.set_lives(self.lives)
 
         super().update()
 
@@ -41,3 +42,13 @@ class Player(Ship):
         self.name_box.render(True, (255, 255, 255), self.screen)
         self.score_box.render(True, (255, 255, 255), self.screen)
         self.lives_bar.render(self.screen)
+
+    def kill(self):
+        groups = self.groups()
+
+        super().kill()
+
+        self.lives -= 1
+        if self.lives == 0:
+            self.lives_bar.set_lives(self.lives)
+

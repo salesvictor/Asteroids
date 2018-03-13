@@ -11,10 +11,11 @@ class GameScreen(ScreenBase):
     def __init__(self, display):
         super().__init__(display)
 
-        # Create player
+        # Create players
         self.player = UserPlayer(display, display.get_width()/2, display.get_height()/2, 1)
-        self.players = pg.sprite.Group()
-        self.players.add(self.player)
+        self.players = [self.player]
+        self.visible_players = pg.sprite.Group()
+        self.visible_players.add(self.player)
 
         # Create background asteroids
         self.asteroids = pg.sprite.Group()
@@ -27,14 +28,28 @@ class GameScreen(ScreenBase):
                 self.asteroids.add(BigAsteroid(display))
 
     def update(self, event):
-        self.players.update(event)
+        # Make all collisions
+        for player in self.visible_players:
+            player.check_bullets_collision(self.asteroids)
+
+        pg.sprite.groupcollide(self.visible_players, self.asteroids, True, True, pg.sprite.collide_mask)
+
+        for player in self.players:
+            if player not in self.visible_players and player.lives > 0:
+                reset_player = UserPlayer(player.screen, player.initialx, player.initialy, player.number, player.lives)
+                self.players.remove(player)
+                self.players.append(reset_player)
+                self.visible_players.add(reset_player)
+
+        # Update objects movement
+        self.visible_players.update(event)
         self.asteroids.update()
 
     def render(self):
         self.display.fill(self.BG_COLOR)
         for player in self.players:
             player.render()
-        self.players.draw(self.display)
-        for player in self.players:
-            player.bullets_sprite.draw(self.display)
+        self.visible_players.draw(self.display)
+        for player in self.visible_players:
+            player.shot_bullets.draw(self.display)
         self.asteroids.draw(self.display)

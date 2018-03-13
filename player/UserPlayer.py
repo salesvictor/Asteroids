@@ -5,8 +5,8 @@ from player.Player import Player
 
 
 class UserPlayer(Player):
-    def __init__(self, screen, x, y, number):
-        super().__init__(screen, x, y, number)
+    def __init__(self, screen, x, y, number, initial_lives=Player.INITIAL_LIVES):
+        super().__init__(screen, x, y, number, initial_lives)
 
     def update(self, event):
         if event.type == pg.KEYDOWN:

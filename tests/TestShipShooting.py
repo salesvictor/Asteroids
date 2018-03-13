@@ -31,9 +31,10 @@ if __name__ == '__main__':
         if ev.type == pg.KEYUP:
             if ev.key == pg.K_SPACE:
                 player.shoot()
-                sprites.add(player.shot_bullets[-1])
 
         screen.fill(BLACK)
+
+        sprites.add(player.shot_bullets)
 
         sprites.update()
         sprites.draw(screen)

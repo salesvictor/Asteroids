@@ -14,6 +14,7 @@ class Saucer(GameObject):
 
         super().__init__(x, y, 0, (0, 0), 0, screen, 'saucer.png', factor)
 
-    def destroy(self):
-        # TODO(Victor) write destroy
-        pass
+    def kill(self):
+        super().kill()
+        # TODO(Victor) write kill
+

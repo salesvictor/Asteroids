@@ -46,10 +46,6 @@ class GameObject(pg.sprite.Sprite):
             self.rect.bottom = 0
             (self.x, self.y) = self.rect.center
 
-    def check_collision(self, other_sprite):
-        if self.collide_mask(self, other_sprite) is not None:
-            return True
-
     def update(self):
         self.x += self.speed * self.vel_dir[0]
         self.y -= self.speed * self.vel_dir[1]
@@ -57,9 +53,6 @@ class GameObject(pg.sprite.Sprite):
         self.direction = (self.direction + 360) % 360
 
         self.check_on_border()
-
-    def destroy(self):
-        pass
 
     def get_vel_angle(self):
         pass

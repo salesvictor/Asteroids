@@ -20,7 +20,8 @@ class Bullet(GameObject):
 
         self.age += 1
         if self.age > self.LIFE_TIME:
-            self.destroy()
+            self.kill()
 
-    def destroy(self):
-        self.kill()
+    def kill(self):
+        super().kill()
+        # TODO(Victor) write kill
