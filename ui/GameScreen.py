@@ -13,7 +13,7 @@ class GameScreen(ScreenBase):
         super().__init__(display)
 
         # Create players
-        self.player = UserPlayer(display, display.get_width()/2, display.get_height()/2, 1)
+        self.player = UserPlayer(display, display.get_width()//2, display.get_height()//2, 1)
         self.players = [self.player]
         self.visible_players = pg.sprite.Group()
         self.visible_players.add(self.player)
@@ -33,7 +33,7 @@ class GameScreen(ScreenBase):
         for player in self.visible_players:
             player.check_bullets_collision(self.asteroids)
 
-        pg.sprite.groupcollide(self.visible_players, self.asteroids, True, True, pg.sprite.collide_mask)
+        collisions = pg.sprite.groupcollide(self.visible_players, self.asteroids, True, True, pg.sprite.collide_mask)
 
         # Look for non-permanently-dead players (which aren't within any group of sprites)
         # and initialize new players to them

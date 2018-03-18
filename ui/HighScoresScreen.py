@@ -5,7 +5,7 @@ from ui.ScreenBase import ScreenBase
 import TitleScreen
 from ui.TextBox import TextBox
 from ui.TextButton import TextButton
-from ui.ScoreCommunicator import ScoreCommunicator
+from score.ScoreCommunicator import ScoreCommunicator
 from models.SmallAsteroid import SmallAsteroid
 from models.MediumAsteroid import MediumAsteroid
 from models.BigAsteroid import BigAsteroid
@@ -31,9 +31,10 @@ class HighScoresScreen(ScreenBase):
                                        self.CLEAR_SCORE_BUTTON_CENTER[1]+self.display_height_factor*50)
 
         # Create screen title and buttons
-        self.screen_title = TextBox(self.SCREEN_TITLE_CENTER, self.SCREEN_TITLE_FONT_SIZE, "HIGH SCORES")
-        self.back_button = TextButton(self.BACK_BUTTON_CENTER, self.BUTTON_FONT_SIZE, "BACK TO MENU")
-        self.clear_score_button = TextButton(self.CLEAR_SCORE_BUTTON_CENTER, self.BUTTON_FONT_SIZE, "CLEAR SCORES")
+        self.screen_title = TextBox(self.display, self.SCREEN_TITLE_CENTER, self.SCREEN_TITLE_FONT_SIZE, "HIGH SCORES")
+        self.back_button = TextButton(self.display, self.BACK_BUTTON_CENTER, self.BUTTON_FONT_SIZE, "BACK TO MENU")
+        self.clear_score_button = TextButton(self.display, self.CLEAR_SCORE_BUTTON_CENTER, self.BUTTON_FONT_SIZE,
+                                             "CLEAR SCORES")
 
         # Create vector of text boxes representing the scores table
         self.score_text_box = []
@@ -51,18 +52,16 @@ class HighScoresScreen(ScreenBase):
             else:
                 self.asteroids.add(BigAsteroid(display))
 
-    def process_input(self):
-        event = super().process_input()
-        self.back_button.process_input(event)
-        self.clear_score_button.process_input(event)
-
     def update(self, event):
+        self.back_button.update(event)
+        self.clear_score_button.update(event)
+
         if self.back_button.get_clicked():
             self.switch_to_scene(TitleScreen.TitleScreen(self.display))
             return
+
         if self.clear_score_button.get_clicked():
             self.score_communicator.clear_db()
-            print("ola")
             return
 
         self.score_communicator.read_csv_file()
@@ -77,7 +76,7 @@ class HighScoresScreen(ScreenBase):
             dialogue = dialogue + '%05d' % row[1]
             center = (self.FIRST_SCORE_BOX_CENTER[0], self.FIRST_SCORE_BOX_CENTER[1]+rows_number*50)
 
-            self.score_text_box.append(TextBox(center, self.SCORE_FONT_SIZE, dialogue))
+            self.score_text_box.append(TextBox(self.display, center, self.SCORE_FONT_SIZE, dialogue))
 
             rows_number += 1
             if rows_number >= 9:
@@ -88,10 +87,10 @@ class HighScoresScreen(ScreenBase):
     def render(self):
         self.display.fill(self.BG_COLOR)
 
-        self.screen_title.render(True, (255, 255, 255), self.display)
-        self.back_button.render(True, (255, 255, 255), self.display)
-        self.clear_score_button.render(True, (255, 255, 255), self.display)
+        self.screen_title.render()
+        self.back_button.render()
+        self.clear_score_button.render()
         for text_box in self.score_text_box:
-            text_box.render(True, (255, 255, 255), self.display)
+            text_box.render()
 
         self.asteroids.draw(self.display)

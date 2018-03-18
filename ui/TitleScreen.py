@@ -26,9 +26,9 @@ class TitleScreen(ScreenBase):
         self.SCORE_BUTTON_CENTER = (self.PLAY_BUTTON_CENTER[0], self.PLAY_BUTTON_CENTER[1]+50)
 
         # Create game title and buttons
-        self.game_title = TextBox(self.GAME_TITLE_CENTER, self.GAME_TITLE_FONT_SIZE, "ASTEROIDS")
-        self.play_button = TextButton(self.PLAY_BUTTON_CENTER, self.BUTTON_FONT_SIZE, "PLAY GAME")
-        self.score_button = TextButton(self.SCORE_BUTTON_CENTER, self.BUTTON_FONT_SIZE, "HIGH SCORES")
+        self.game_title = TextBox(self.display, self.GAME_TITLE_CENTER, self.GAME_TITLE_FONT_SIZE, "ASTEROIDS")
+        self.play_button = TextButton(self.display, self.PLAY_BUTTON_CENTER, self.BUTTON_FONT_SIZE, "PLAY GAME")
+        self.score_button = TextButton(self.display, self.SCORE_BUTTON_CENTER, self.BUTTON_FONT_SIZE, "HIGH SCORES")
 
         # Create background asteroids
         self.asteroids = pygame.sprite.Group()
@@ -40,12 +40,10 @@ class TitleScreen(ScreenBase):
             else:
                 self.asteroids.add(BigAsteroid(display))
 
-    def process_input(self):
-        event = super().process_input()
-        self.play_button.process_input(event)
-        self.score_button.process_input(event)
-
     def update(self, event):
+        self.play_button.update(event)
+        self.score_button.update(event)
+
         if self.play_button.get_clicked():
             self.switch_to_scene(GameScreen.GameScreen(self.display))
             return
@@ -58,8 +56,8 @@ class TitleScreen(ScreenBase):
     def render(self):
         self.display.fill(self.BG_COLOR)
 
-        self.game_title.render(True, (255, 255, 255), self.display)
-        self.play_button.render(True, (255, 255, 255), self.display)
-        self.score_button.render(True, (255, 255, 255), self.display)
+        self.game_title.render()
+        self.play_button.render()
+        self.score_button.render()
 
         self.asteroids.draw(self.display)

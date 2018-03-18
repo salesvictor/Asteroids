@@ -30,9 +30,12 @@ class Player(Ship):
         self.LIVES_BAR_CENTER = (self.SCORE_BOX_CENTER[0], self.SCORE_BOX_CENTER[1] + 30)
 
         # Create text boxes and lives bar
-        self.name_box = TextBox(self.NAME_BOX_CENTER, self.NAME_BOX_FONT_SIZE, self.name)
-        self.score_box = TextBox(self.SCORE_BOX_CENTER, self.SCORE_BOX_FONT_SIZE, f"{self.score}")
+        self.name_box = TextBox(self.screen, self.NAME_BOX_CENTER, self.NAME_BOX_FONT_SIZE, self.name)
+        self.score_box = TextBox(self.screen, self.SCORE_BOX_CENTER, self.SCORE_BOX_FONT_SIZE, f"{self.score}")
         self.lives_bar = LivesBar(self.LIVES_BAR_CENTER, self.lives)
+
+    def add_score(self, points):
+        self.score += points
 
     def update(self, event=None):
         # Change the score displayed
@@ -42,8 +45,8 @@ class Player(Ship):
 
     # Render the text boxes and lives bar
     def render(self):
-        self.name_box.render(True, (255, 255, 255), self.screen)
-        self.score_box.render(True, (255, 255, 255), self.screen)
+        self.name_box.render()
+        self.score_box.render()
         self.lives_bar.render(self.screen)
 
     # Eliminates the player from the current groups

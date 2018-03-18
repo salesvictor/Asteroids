@@ -1,18 +1,14 @@
-import pygame as pg
-
 from ui.ScreenBase import ScreenBase
 from ui.HighScoresScreen import HighScoresScreen
-from ui.ScoreCommunicator import ScoreCommunicator
+from score.ScoreCommunicator import ScoreCommunicator
 from ui.TextBox import TextBox
 from ui.TextEntryBox import TextEntryBox
-from ui.TextButton import TextButton
 
 
 class GameOverScreen(ScreenBase):
     SCREEN_TITLE_FONT_SIZE = 72
     PLAYER_NAME_ENTRY_BOX_FONT_SIZE = 36
     BUTTON_FONT_SIZE = 24
-    PLAYER_NAME_ENTRY_BOX_MAX_CHARACTERS = 6
 
     def __init__(self, display, players, remain_sprites):
         super().__init__(display)
@@ -24,16 +20,15 @@ class GameOverScreen(ScreenBase):
         self.display_height_factor = display.get_height() / 640
         self.SCREEN_TITLE_CENTER = (self.display_width_factor * 400, self.display_height_factor * 50)
         self.PLAYER_BOX_CENTER = (self.SCREEN_TITLE_CENTER[0],
-                              self.SCREEN_TITLE_CENTER[1] + self.display_height_factor * 200)
+                                  self.SCREEN_TITLE_CENTER[1] + self.display_height_factor * 200)
         self.PLAYER_NAME_ENTRY_BOX_CENTER = (self.PLAYER_BOX_CENTER[0],
                                              self.PLAYER_BOX_CENTER[1] + self.display_height_factor * 50)
 
         # Create screen title and buttons
-        self.screen_title = TextBox(self.SCREEN_TITLE_CENTER, self.SCREEN_TITLE_FONT_SIZE, "GAME OVER")
-        self.player_box = TextBox(self.PLAYER_BOX_CENTER, self.PLAYER_NAME_ENTRY_BOX_FONT_SIZE, "")
-        self.player_name_entry_box = TextEntryBox(self.PLAYER_NAME_ENTRY_BOX_CENTER,
-                                                  self.PLAYER_NAME_ENTRY_BOX_FONT_SIZE,
-                                                  self.PLAYER_NAME_ENTRY_BOX_MAX_CHARACTERS)
+        self.screen_title = TextBox(self.display, self.SCREEN_TITLE_CENTER, self.SCREEN_TITLE_FONT_SIZE, "GAME OVER")
+        self.player_box = TextBox(self.display, self.PLAYER_BOX_CENTER, self.PLAYER_NAME_ENTRY_BOX_FONT_SIZE)
+        self.player_name_entry_box = TextEntryBox(self.display, self.PLAYER_NAME_ENTRY_BOX_CENTER,
+                                                  self.PLAYER_NAME_ENTRY_BOX_FONT_SIZE)
 
         # Receive players information
         self.players = []
@@ -66,7 +61,7 @@ class GameOverScreen(ScreenBase):
     # Render all text boxes and draw all sprites
     def render(self):
         self.display.fill(self.BG_COLOR)
-        self.screen_title.render(True, (255, 255, 255), self.display)
-        self.player_box.render(True, (255, 255, 255), self.display)
-        self.player_name_entry_box.render(True, (255, 255, 255), self.display)
+        self.screen_title.render()
+        self.player_box.render()
+        self.player_name_entry_box.render()
         self.remain_sprites.draw(self.display)

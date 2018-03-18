@@ -1,31 +1,36 @@
-import pygame
+import pygame as pg
 
 
-class TextBox:
+class TextBox(pg.sprite.Sprite):
     BG_COLOR = (0, 0, 0)
+    TEXT_COLOR = (255, 255, 255)
+    ANTIALIAS = True
 
-    def __init__(self, center, font_size, dialogue):
-        pygame.init()
+    def __init__(self, screen, center, font_size, dialogue=""):
+        pg.init()
 
-        self.center = center
+        # Initializing the text, which is a drawable pygame Surface instance that uses font and dialogue
+        # to render itself
         self.font_size = font_size
+        self.font = pg.font.Font("../fonts/Hyperspace.ttf", self.font_size)
         self.dialogue = dialogue
+        self.text = self.font.render(self.dialogue, self.ANTIALIAS, self.TEXT_COLOR)
 
-        self.font = pygame.font.Font("../fonts/Hyperspace.ttf", font_size)
+        # Initializing the rect that represents the box area
+        size = (self.text.get_width(), self.text.get_height())
+        self.rect = pg.Rect((center[0]-size[0]//2, center[1]-size[1]//2), size)
 
-        length = len(dialogue)
-        self.size = (0.6*font_size*length, font_size)
+        self.screen = screen
 
     def set_dialogue(self, dialogue):
         self.dialogue = dialogue
-        length = len(dialogue)
-        self.size = (0.6*self.font_size*length, self.font_size)
+        self.text = self.font.render(self.dialogue, self.ANTIALIAS, self.TEXT_COLOR)
+        size = (self.text.get_width(), self.text.get_height())
+        self.rect = pg.Rect((self.rect.center[0]-size[0]//2, self.rect.center[1]-size[1]//2), size)
 
-    def render(self, antialias, color, screen):
-        pos = (self.center[0] - self.size[0]/2, self.center[1] - self.size[1]/2,
-               self.size[0], self.size[1])
+    def update(self, event):
+        pass
 
-        screen.fill(self.BG_COLOR, pos)
-
-        text = self.font.render(self.dialogue, antialias, color)
-        screen.blit(text, (pos[0], pos[1]))
+    def render(self):
+        self.screen.fill(self.BG_COLOR, self.rect)
+        self.screen.blit(self.text, self.rect.topleft)
