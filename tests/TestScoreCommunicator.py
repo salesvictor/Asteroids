@@ -1,4 +1,4 @@
-from ui.ScoreCommunicator import ScoreCommunicator
+from score.ScoreCommunicator import ScoreCommunicator
 
 
 communicator = ScoreCommunicator('../db/test_scores_db.csv')
