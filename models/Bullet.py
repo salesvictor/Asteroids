@@ -3,7 +3,7 @@ from models.GameObject import GameObject
 
 
 class Bullet(GameObject):
-    LIFE_TIME = 40  # Max of cycles the bullet can exist
+    LIFE_TIME = 50  # Max of cycles the bullet can exist
 
     def __init__(self, screen,  x, y, direction):
         super().__init__(x, y, direction, (cos(radians(direction)), sin(radians(direction))),

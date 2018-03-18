@@ -10,9 +10,9 @@ class UserPlayer(Player):
 
     # Update based on keyboard events
     def update(self, event):
-        if event.type == pg.KEYDOWN:
-            if event.key == pg.K_SPACE:
-                self.shoot()
+        #if event.type == pg.KEYDOWN:
+        #   if event.key == pg.K_SPACE:
+        #        self.shoot()
 
         keys = pg.key.get_pressed()
         if keys[pg.K_w] or keys[pg.K_UP]:
@@ -22,5 +22,7 @@ class UserPlayer(Player):
             self.turn(-self.TURN_SPEED)
         if keys[pg.K_d] or keys[pg.K_RIGHT]:
             self.turn(self.TURN_SPEED)
+        if keys[pg.K_SPACE]:
+            self.shoot()
 
         super().update()
