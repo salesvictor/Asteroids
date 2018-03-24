@@ -2,6 +2,7 @@ import pygame as pg
 
 from ui.ScreenBase import ScreenBase
 from ui.GameOverScreen import GameOverScreen
+from score.ScoreCounter import ScoreCounter
 from player.UserPlayer import UserPlayer
 from models.SmallAsteroid import SmallAsteroid
 from models.MediumAsteroid import MediumAsteroid
@@ -11,6 +12,9 @@ from models.BigAsteroid import BigAsteroid
 class GameScreen(ScreenBase):
     def __init__(self, display):
         super().__init__(display)
+
+        # Create a score counter to assign each player's score
+        self.score_counter = ScoreCounter()
 
         # Create players
         self.player = UserPlayer(display, display.get_width()//2, display.get_height()//2, 1)
@@ -32,14 +36,14 @@ class GameScreen(ScreenBase):
         # Make all collisions
         for player in self.visible_players:
             player.check_bullets_collision(self.asteroids)
-
-        collisions = pg.sprite.groupcollide(self.visible_players, self.asteroids, True, True, pg.sprite.collide_mask)
+            player.check_self_collision(self.asteroids)
 
         # Look for non-permanently-dead players (which aren't within any group of sprites)
         # and initialize new players to them
         for player in self.players:
             if player not in self.visible_players and player.lives > 0:
-                reset_player = UserPlayer(player.screen, player.initialx, player.initialy, player.number, player.lives)
+                reset_player = UserPlayer(player.screen, player.initialx, player.initialy, player.number, player.lives,
+                                          player.score)
                 self.players.remove(player)
                 self.players.append(reset_player)
                 self.visible_players.add(reset_player)

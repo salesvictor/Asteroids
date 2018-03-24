@@ -37,11 +37,17 @@ class Ship(GameObject):
 
     #  Check for its bullets collisions and kill the objects colliding
     def check_bullets_collision(self, sprites_group):
-        pg.sprite.groupcollide(self.shot_bullets, sprites_group, True, True, pg.sprite.collide_mask)
+        return pg.sprite.groupcollide(sprites_group, self.shot_bullets, True, True, pg.sprite.collide_mask)
+
+    #  Check for player collisions with other objects
+    def check_self_collision(self, sprites_group):
+        collisions = pg.sprite.spritecollide(self, sprites_group, True, pg.sprite.collide_mask)
+        if len(collisions) > 0:
+            self.kill()
+        return collisions
 
     #  Cast a bullet in the direction the ship is pointing
     def shoot(self):
-        print(len(self.shot_bullets.sprites()))
         if self.time_since_discharge > self.RECHARGE_BULLETS_TIME:
             if len(self.shot_bullets.sprites()) == 0 or \
                 (len(self.shot_bullets.sprites()) < self.MAX_SHOT_BULLETS and

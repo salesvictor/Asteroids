@@ -2,6 +2,7 @@ from models.Ship import Ship
 
 from ui.TextBox import TextBox
 from ui.LivesBar import LivesBar
+from score.ScoreCounter import ScoreCounter
 
 
 class Player(Ship):
@@ -11,16 +12,19 @@ class Player(Ship):
     NAME_BOX_FONT_SIZE = 20
     SCORE_BOX_FONT_SIZE = 20
 
-    def __init__(self, screen, x, y, number, initial_lives=INITIAL_LIVES):
+    def __init__(self, screen, x, y, number, initial_lives=INITIAL_LIVES, score=0):
         super().__init__(screen, x, y)
         self.initialx = x
         self.initialy = y
 
         self.lives = initial_lives
-        self.score = 0
+        self.score = score
         self.number = number
         self.name = f"PLAYER{number}"
         self.screen = screen
+
+        # Create an score counter for the player
+        self.score_counter = ScoreCounter()
 
         # Calculate position of text boxes and lives bar
         self.display_width_factor = screen.get_width() / 800
@@ -36,6 +40,18 @@ class Player(Ship):
 
     def add_score(self, points):
         self.score += points
+
+    def check_bullets_collision(self, sprites_group):
+        collisions = super().check_bullets_collision(sprites_group)
+        for collision in collisions:
+            event = collision.__class__.__name__
+            self.score_counter.add_score(self, event)
+
+    def check_self_collision(self, sprites_group):
+        collisions = super().check_self_collision(sprites_group)
+        for collision in collisions:
+            event = collision.__class__.__name__
+            self.score_counter.add_score(self, event)
 
     def update(self, event=None):
         # Change the score displayed

@@ -5,8 +5,8 @@ from player.Player import Player
 
 
 class UserPlayer(Player):
-    def __init__(self, screen, x, y, number, initial_lives=Player.INITIAL_LIVES):
-        super().__init__(screen, x, y, number, initial_lives)
+    def __init__(self, screen, x, y, number, initial_lives=Player.INITIAL_LIVES, score=0):
+        super().__init__(screen, x, y, number, initial_lives,score)
 
     # Update based on keyboard events
     def update(self, event):

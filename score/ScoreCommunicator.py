@@ -1,7 +1,7 @@
 import csv
 
 
-class ScoreCommunicator:
+class ScoreCommunicator(object):
     MAX_TABLE_ROWS = 50
 
     def __init__(self, db_file_name):

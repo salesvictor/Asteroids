@@ -1,11 +1,4 @@
-class ScoreCounter:
-    # Enumeration of the events that can change the score
-    BIG_ASTEROID = 1
-    MEDIUM_ASTEROID = 2
-    SMALL_ASTEROID = 3
-    BIG_SAUCER = 4
-    SMALL_SAUCER = 5
-
+class ScoreCounter(object):
     # Assignment of the points given for each event
     BIG_ASTEROID_SCORE = 20
     MEDIUM_ASTEROID_SCORE = 50
@@ -15,13 +8,13 @@ class ScoreCounter:
 
     # Method that changes the score off a player based on the event passed
     def add_score(self, player, event):
-        if event == self.BIG_ASTEROID:
+        if event == 'BigAsteroid':
             player.add_score(self.BIG_ASTEROID_SCORE)
-        elif event == self.MEDIUM_ASTEROID:
+        elif event == 'MediumAsteroid':
             player.add_score(self.MEDIUM_ASTEROID_SCORE)
-        elif event == self.SMALL_ASTEROID:
+        elif event == 'SmallAsteroid':
             player.add_score(self.SMALL_ASTEROID_SCORE)
-        elif event == self.BIG_SAUCER_SCORE:
+        elif event == 'BigSaucer':
             player.add_score(self.BIG_SAUCER_SCORE)
-        elif event == self.SMALL_SAUCER_SCORE:
+        elif event == 'SmallSaucer':
             player.add_score(self.SMALL_SAUCER_SCORE)
