@@ -43,6 +43,9 @@ if __name__ == '__main__':
         elif ev.type == pg.KEYDOWN:
             if ev.key == pg.K_ESCAPE:
                 break
+            if ev.key == pg.K_SPACE:
+                for saucer in saucers:
+                    saucer.kill()
 
         debug_text = f"bullet timer: {big_saucer.bullet_timer}"
         text_surface = my_font.render(debug_text, True, (255, 255, 255))

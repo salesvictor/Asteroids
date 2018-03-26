@@ -30,8 +30,8 @@ class SmallSaucer(Saucer):
         self.saucer_shot_bullets.add(bullet)
 
     def update(self):
-        self.bullet_timer = (self.bullet_timer + 1) % 400
-        if self.bullet_timer == 200:
+        self.bullet_timer = (self.bullet_timer + 1) % 200
+        if self.bullet_timer == 100:
             self.shoot()
 
         super().update()

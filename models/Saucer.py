@@ -34,7 +34,7 @@ class Saucer(GameObject):
 
         angle = radians(uniform(0, 360))
         if speed is None:
-            speed = lognormvariate(self.SPEED_MU, self.SPEED_SIGMA)
+            speed = 3
         if vel_dir is None:
             vel_dir = (cos(angle), sin(angle))
 
@@ -47,6 +47,10 @@ class Saucer(GameObject):
         self.saucer_shot_bullets.update()
 
         super().update()
+
+    def kill(self):
+        self.saucer_shot_bullets.empty()
+        super().kill()
 
     def shoot(self):
         pass

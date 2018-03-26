@@ -26,7 +26,7 @@ class TitleScreen(ScreenBase):
         self.SCORE_BUTTON_CENTER = (self.PLAY_BUTTON_CENTER[0], self.PLAY_BUTTON_CENTER[1]+50)
 
         # Create game title and buttons
-        self.game_title = TextBox(self.display, self.GAME_TITLE_CENTER, self.GAME_TITLE_FONT_SIZE, "ASTEROIDS")
+        self.game_title = TextBox(self.display, self.GAME_TITLE_CENTER, self.GAME_TITLE_FONT_SIZE, "METEORITOS")
         self.play_button = TextButton(self.display, self.PLAY_BUTTON_CENTER, self.BUTTON_FONT_SIZE, "PLAY GAME")
         self.score_button = TextButton(self.display, self.SCORE_BUTTON_CENTER, self.BUTTON_FONT_SIZE, "HIGH SCORES")
 

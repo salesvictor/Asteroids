@@ -24,7 +24,7 @@ if __name__ == '__main__':
                 break
             elif ev.key == pygame.K_SPACE:
                 for asteroid in asteroids:
-                    asteroids.add(asteroid.destroy())
+                    asteroid.kill()
 
         screen.fill((0, 0, 0))
 

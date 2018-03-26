@@ -1,7 +1,10 @@
+import os
 from score.ScoreCommunicator import ScoreCommunicator
 
 
-communicator = ScoreCommunicator('../db/test_scores_db.csv')
+path = os.path.dirname(__file__)
+path = os.path.join(path, os.pardir, 'db', 'test_scores_db.csv')
+communicator = ScoreCommunicator(path)
 
 # Test if communicator is reading database
 # (must return whatever was previously written to the file)
