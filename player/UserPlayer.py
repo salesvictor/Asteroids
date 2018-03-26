@@ -5,7 +5,8 @@ from player.Player import Player
 
 
 class UserPlayer(Player):
-    def __init__(self, screen, x, y, number, initial_lives=Player.INITIAL_LIVES, score=0):
+    def __init__(self, screen, x, y, number, initial_lives=Player.INITIAL_LIVES,
+                 score=0):
         super().__init__(screen, x, y, number, initial_lives,score)
 
     # Update based on keyboard events
@@ -17,7 +18,8 @@ class UserPlayer(Player):
         keys = pg.key.get_pressed()
         if keys[pg.K_w] or keys[pg.K_UP]:
             self.speed = min(self.speed + self.ACCEL, self.MAX_SPEED)
-            self.vel_dir = (cos(radians(self.direction)), sin(radians(self.direction)))
+            self.vel_dir = (cos(radians(self.direction)),
+                            sin(radians(self.direction)))
         if keys[pg.K_a] or keys[pg.K_LEFT]:
             self.turn(-self.TURN_SPEED)
         if keys[pg.K_d] or keys[pg.K_RIGHT]:

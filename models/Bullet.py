@@ -6,8 +6,9 @@ class Bullet(GameObject):
     LIFE_TIME = 50  # Max of cycles the bullet can exist
 
     def __init__(self, screen,  x, y, direction):
-        super().__init__(x, y, direction, (cos(radians(direction)), sin(radians(direction))),
-                         10, screen, 'bullet.png', 0.75)
+        super().__init__(x, y, direction, (cos(radians(direction)),
+                         sin(radians(direction))), 10, screen, 'bullet.png',
+                         0.75)
 
         self.age = 0  # Number of cycles since the bullet was cast
 

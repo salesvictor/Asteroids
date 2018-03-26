@@ -8,7 +8,8 @@ class Asteroid(GameObject):
     SPEED_MU = log(4/3)
     SPEED_SIGMA = 0.8
 
-    def __init__(self, screen, img_factor, x=None, y=None, speed=None, vel_dir=None):
+    def __init__(self, screen, img_factor, x=None, y=None, speed=None,
+                 vel_dir=None):
         """
         Description
         """

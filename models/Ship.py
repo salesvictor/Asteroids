@@ -31,17 +31,20 @@ class Ship(GameObject):
 
     #  Rotate the ship
     def turn(self, angle):
-        self.image = pg.transform.rotate(self.original_image, self.direction + angle)
+        self.image = pg.transform.rotate(self.original_image,
+                                         self.direction + angle)
         self.rect = self.image.get_rect(center=(self.x, self.y))
         self.direction += angle
 
     #  Check for its bullets collisions and kill the objects colliding
     def check_bullets_collision(self, sprites_group):
-        return pg.sprite.groupcollide(sprites_group, self.shot_bullets, True, True, pg.sprite.collide_mask)
+        return pg.sprite.groupcollide(sprites_group, self.shot_bullets, True,
+                                      True, pg.sprite.collide_mask)
 
     #  Check for player collisions with other objects
     def check_self_collision(self, sprites_group):
-        collisions = pg.sprite.spritecollide(self, sprites_group, True, pg.sprite.collide_mask)
+        collisions = pg.sprite.spritecollide(self, sprites_group, True,
+                                             pg.sprite.collide_mask)
         if len(collisions) > 0:
             self.kill()
         return collisions

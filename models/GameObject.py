@@ -4,7 +4,8 @@ import pygame as pg
 
 class GameObject(pg.sprite.Sprite):
 
-    def __init__(self, x, y, direction, vel_dir, speed, screen, img_name, img_factor):
+    def __init__(self, x, y, direction, vel_dir, speed, screen, img_name,
+                 img_factor):
         super().__init__()
         self.x = x
         self.y = y
@@ -24,7 +25,8 @@ class GameObject(pg.sprite.Sprite):
         new_img_size = []
         for dimension in img_size:
             new_img_size.append(int(img_factor * dimension))
-        self.original_image = pg.transform.scale(self.original_image, new_img_size)
+        self.original_image = pg.transform.scale(self.original_image,
+                                                 new_img_size)
         self.image = self.original_image.copy()
 
         self.rect = self.image.get_rect(center=(x, y))

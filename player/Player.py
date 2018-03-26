@@ -12,7 +12,8 @@ class Player(Ship):
     NAME_BOX_FONT_SIZE = 20
     SCORE_BOX_FONT_SIZE = 20
 
-    def __init__(self, screen, x, y, number, initial_lives=INITIAL_LIVES, score=0):
+    def __init__(self, screen, x, y, number, initial_lives=INITIAL_LIVES,
+                 score=0):
         super().__init__(screen, x, y)
         self.initialx = x
         self.initialy = y
@@ -29,13 +30,18 @@ class Player(Ship):
         # Calculate position of text boxes and lives bar
         self.display_width_factor = screen.get_width() / 800
         self.display_height_factor = screen.get_height() / 640
-        self.NAME_BOX_CENTER = (self.display_width_factor * 100, self.display_height_factor * 25)
-        self.SCORE_BOX_CENTER = (self.NAME_BOX_CENTER[0], self.NAME_BOX_CENTER[1] + 25)
-        self.LIVES_BAR_CENTER = (self.SCORE_BOX_CENTER[0], self.SCORE_BOX_CENTER[1] + 30)
+        self.NAME_BOX_CENTER = (self.display_width_factor * 100,
+                                self.display_height_factor * 25)
+        self.SCORE_BOX_CENTER = (self.NAME_BOX_CENTER[0],
+                                 self.NAME_BOX_CENTER[1] + 25)
+        self.LIVES_BAR_CENTER = (self.SCORE_BOX_CENTER[0],
+                                 self.SCORE_BOX_CENTER[1] + 30)
 
         # Create text boxes and lives bar
-        self.name_box = TextBox(self.screen, self.NAME_BOX_CENTER, self.NAME_BOX_FONT_SIZE, self.name)
-        self.score_box = TextBox(self.screen, self.SCORE_BOX_CENTER, self.SCORE_BOX_FONT_SIZE, f"{self.score}")
+        self.name_box = TextBox(self.screen, self.NAME_BOX_CENTER,
+                                self.NAME_BOX_FONT_SIZE, self.name)
+        self.score_box = TextBox(self.screen, self.SCORE_BOX_CENTER,
+                                 self.SCORE_BOX_FONT_SIZE, f"{self.score}")
         self.lives_bar = LivesBar(self.LIVES_BAR_CENTER, self.lives)
 
     def add_score(self, points):
@@ -73,4 +79,3 @@ class Player(Ship):
         # If lives are reduced to zero, player permanently dies
         if self.lives == 0:
             self.lives_bar.set_lives(self.lives)
-

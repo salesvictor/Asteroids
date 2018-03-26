@@ -7,6 +7,8 @@ from player.UserPlayer import UserPlayer
 from models.SmallAsteroid import SmallAsteroid
 from models.MediumAsteroid import MediumAsteroid
 from models.BigAsteroid import BigAsteroid
+from models.BigSaucer import BigSaucer
+from models.SmallSaucer import SmallSaucer
 
 
 class GameScreen(ScreenBase):
@@ -17,7 +19,8 @@ class GameScreen(ScreenBase):
         self.score_counter = ScoreCounter()
 
         # Create players
-        self.player = UserPlayer(display, display.get_width()//2, display.get_height()//2, 1)
+        self.player = UserPlayer(display, display.get_width()//2,
+                                 display.get_height()//2, 1)
         self.players = [self.player]
         self.visible_players = pg.sprite.Group()
         self.visible_players.add(self.player)
@@ -32,18 +35,38 @@ class GameScreen(ScreenBase):
             else:
                 self.asteroids.add(BigAsteroid(display))
 
+        # Creates a big saucer at the beggining
+        self.big_saucer = BigSaucer(display)
+        # Lists all the big saucers in the game
+        self.big_saucers = [self.big_saucer]
+        # Creates a small saucer at the beggining
+        self.small_saucer = SmallSaucer(display, self.player)
+        # Lists all the small saucers in the game
+        self.small_saucers = [self.small_saucer]
+        self.saucers = pg.sprite.Group()
+        self.saucers.add(self.big_saucers)
+        self.saucers.add(self.small_saucers)
+
     def update(self, event):
         # Make all collisions
         for player in self.visible_players:
             player.check_bullets_collision(self.asteroids)
+            player.check_bullets_collision(self.saucers)
             player.check_self_collision(self.asteroids)
+            player.check_self_collision(self.saucers)
+            for big_saucer in self.big_saucers:
+                player.check_self_collision(big_saucer.saucer_shot_bullets)
+            for small_saucer in self.small_saucers:
+                player.check_self_collision(small_saucer.saucer_shot_bullets)
 
-        # Look for non-permanently-dead players (which aren't within any group of sprites)
+        # Look for non-permanently-dead players (which aren't within any group
+        # of sprites)
         # and initialize new players to them
         for player in self.players:
             if player not in self.visible_players and player.lives > 0:
-                reset_player = UserPlayer(player.screen, player.initialx, player.initialy, player.number, player.lives,
-                                          player.score)
+                reset_player = UserPlayer(player.screen, player.initialx,
+                                          player.initialy, player.number,
+                                          player.lives, player.score)
                 self.players.remove(player)
                 self.players.append(reset_player)
                 self.visible_players.add(reset_player)
@@ -51,6 +74,7 @@ class GameScreen(ScreenBase):
         # Update objects movement
         self.visible_players.update(event)
         self.asteroids.update()
+        self.saucers.update()
 
         # Check if all players have permanently died and, if so, ends the game
         game_over = True
@@ -60,7 +84,8 @@ class GameScreen(ScreenBase):
                 break
 
         if game_over:
-            self.switch_to_scene(GameOverScreen(self.display, self.players, self.asteroids))
+            self.switch_to_scene(GameOverScreen(self.display, self.players,
+                                                self.asteroids))
 
     # Render all text boxes and draw all sprites
     def render(self):
@@ -70,4 +95,9 @@ class GameScreen(ScreenBase):
         self.visible_players.draw(self.display)
         for player in self.visible_players:
             player.shot_bullets.draw(self.display)
+        for big_saucer in self.big_saucers:
+            big_saucer.saucer_shot_bullets.draw(self.display)
+        for small_saucer in self.small_saucers:
+            small_saucer.saucer_shot_bullets.draw(self.display)
         self.asteroids.draw(self.display)
+        self.saucers.draw(self.display)
