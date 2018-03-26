@@ -13,7 +13,7 @@ class GameOverScreen(ScreenBase):
     def __init__(self, display, players, remain_sprites):
         super().__init__(display)
 
-        self.score_communicator = ScoreCommunicator('../db/scores_db.csv')
+        self.score_communicator = ScoreCommunicator('db/scores_db.csv')
 
         # Calculate position of game title and buttons
         self.display_width_factor = display.get_width() / 800

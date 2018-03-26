@@ -11,7 +11,7 @@ def main(args, fps):
     elif len(args) == 2:
         size = (float(args[1]), float(args[2]))
     else:
-        print('Usage:\n  main.py width heigth.\nExample:\n  main.py 800 640\n')
+        print('Usage:\n  asteroids.py width heigth.\nExample:\n  asteroids.py 800 640\n')
         return
 
     pygame.init()

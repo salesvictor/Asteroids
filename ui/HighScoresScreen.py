@@ -40,7 +40,7 @@ class HighScoresScreen(ScreenBase):
         self.score_text_box = []
 
         # Create score communicator
-        self.score_communicator = ScoreCommunicator("../db/scores_db.csv")
+        self.score_communicator = ScoreCommunicator("db/scores_db.csv")
 
         # Create background asteroids
         self.asteroids = pygame.sprite.Group()

@@ -12,7 +12,7 @@ class TextBox(pg.sprite.Sprite):
         # Initializing the text, which is a drawable pygame Surface instance that uses font and dialogue
         # to render itself
         self.font_size = font_size
-        self.font = pg.font.Font("../fonts/Hyperspace.ttf", self.font_size)
+        self.font = pg.font.Font("fonts/Hyperspace.ttf", self.font_size)
         self.dialogue = dialogue
         self.text = self.font.render(self.dialogue, self.ANTIALIAS, self.TEXT_COLOR)
 
