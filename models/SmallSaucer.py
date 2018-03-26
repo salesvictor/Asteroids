@@ -14,7 +14,6 @@ class SmallSaucer(Saucer):
         self.player = player
 
     def shoot(self):
-        print(self.player.x)
         dy = -(self.player.y - self.y)
         dx = self.player.x - self.x
 

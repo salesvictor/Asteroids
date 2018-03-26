@@ -87,6 +87,30 @@ class GameScreen(ScreenBase):
             self.switch_to_scene(GameOverScreen(self.display, self.players,
                                                 self.asteroids))
 
+        # Todo: Create a round function to call rounds
+        # If game is not over and all asteroids and saucers were destroyed, call a new round
+        if not (self.asteroids.__nonzero__() or self.saucers.__nonzero__()):
+            print("next round")
+            # Create asteroids
+            for i in range(12):
+                if i % 3 == 0:
+                    self.asteroids.add(SmallAsteroid(self.display))
+                elif i % 3 == 1:
+                    self.asteroids.add(MediumAsteroid(self.display))
+                else:
+                    self.asteroids.add(BigAsteroid(self.display))
+
+            # Creates a big saucer at the beggining
+            self.big_saucer = BigSaucer(self.display)
+            # Lists all the big saucers in the game
+            self.big_saucers = [self.big_saucer]
+            # Creates a small saucer at the beggining
+            self.small_saucer = SmallSaucer(self.display, self.player)
+            # Lists all the small saucers in the game
+            self.small_saucers = [self.small_saucer]
+            self.saucers.add(self.big_saucers)
+            self.saucers.add(self.small_saucers)
+
     # Render all text boxes and draw all sprites
     def render(self):
         self.display.fill(self.BG_COLOR)
