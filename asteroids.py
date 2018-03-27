@@ -1,7 +1,7 @@
 import sys
 import pygame
 
-from ui.TitleScreen import TitleScreen
+from screen.TitleScreen import TitleScreen
 
 
 def main(args, fps):

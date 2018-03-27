@@ -1,10 +1,10 @@
 import pygame
 
-from ui.ScreenBase import ScreenBase
+from screen.ScreenBase import ScreenBase
 # TODO: Check if there is a better way to deal with cyclic imports
-import TitleScreen
-from ui.TextBox import TextBox
-from ui.TextButton import TextButton
+from screen import TitleScreen
+from text.TextBox import TextBox
+from text.TextButton import TextButton
 from score.ScoreCommunicator import ScoreCommunicator
 from models.SmallAsteroid import SmallAsteroid
 from models.MediumAsteroid import MediumAsteroid

@@ -1,7 +1,7 @@
 import pygame as pg
 
-from ui.ScreenBase import ScreenBase
-from ui.GameOverScreen import GameOverScreen
+from screen.ScreenBase import ScreenBase
+from screen.GameOverScreen import GameOverScreen
 from score.ScoreCounter import ScoreCounter
 from player.UserPlayer import UserPlayer
 from models.SmallAsteroid import SmallAsteroid

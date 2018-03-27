@@ -19,7 +19,7 @@ class LivesBar:
 
         # Initializing ship image in graphics folder
         path = os.path.dirname(__file__)
-        path = os.path.join(path, os.pardir, 'graphics', self.IMG_NAME)
+        path = os.path.join(path, '..\\..\\assets\\graphics', self.IMG_NAME)
         original_image = pygame.image.load(path)
         self.original_image = pygame.transform.rotate(original_image, 90)
 

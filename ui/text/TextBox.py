@@ -14,7 +14,7 @@ class TextBox(pg.sprite.Sprite):
         # to render itself
         self.font_size = font_size
         path = os.path.dirname(__file__)
-        path = os.path.join(path, os.pardir, 'fonts', 'Hyperspace.ttf')
+        path = os.path.join(path, '..\\..\\assets\\fonts', 'Hyperspace.ttf')
         self.font = pg.font.Font(path, self.font_size)
         self.dialogue = dialogue
         self.text = self.font.render(self.dialogue, self.ANTIALIAS, self.TEXT_COLOR)

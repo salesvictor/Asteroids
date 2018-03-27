@@ -1,7 +1,7 @@
 from models.Ship import Ship
 
-from ui.TextBox import TextBox
-from ui.LivesBar import LivesBar
+from text.TextBox import TextBox
+from text.LivesBar import LivesBar
 from score.ScoreCounter import ScoreCounter
 
 
