@@ -17,9 +17,7 @@ class UserPlayer(Player):
 
         keys = pg.key.get_pressed()
         if keys[pg.K_w] or keys[pg.K_UP]:
-            self.speed = min(self.speed + self.ACCEL, self.MAX_SPEED)
-            self.vel_dir = (cos(radians(self.direction)),
-                            sin(radians(self.direction)))
+            self.forward()
         if keys[pg.K_a] or keys[pg.K_LEFT]:
             self.turn(-self.TURN_SPEED)
         if keys[pg.K_d] or keys[pg.K_RIGHT]:

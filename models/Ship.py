@@ -15,12 +15,15 @@ class Ship(GameObject):
     TURN_SPEED = -2
 
     def __init__(self, screen, x, y):
-        super().__init__(x, y, 0, (0, 0), 0, screen, 'ship.png', 0.1)
+        super().__init__(x, y, 90, (0, 0), 0, screen, 'ship.png', 0.1)
         self.shot_bullets = pg.sprite.Group()
         self.time_since_discharge = self.RECHARGE_BULLETS_TIME
 
     #  Update the ship and its bullets movement
     def update(self):
+        self.vel_dir = (cos(radians(self.direction)),
+                        sin(radians(self.direction)))
+
         self.speed = max(self.speed - self.DEACCEL, 0)
 
         self.shot_bullets.update()
@@ -28,6 +31,10 @@ class Ship(GameObject):
         self.time_since_discharge += 1
 
         super().update()
+
+    #  Make the ship go forward
+    def forward(self):
+        self.speed = min(self.speed + self.ACCEL, self.MAX_SPEED)
 
     #  Rotate the ship
     def turn(self, angle):
@@ -64,4 +71,3 @@ class Ship(GameObject):
 
     def kill(self):
         super().kill()
-        # TODO(Victor) write kill
