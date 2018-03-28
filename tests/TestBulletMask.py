@@ -3,7 +3,7 @@ from math import atan, degrees, pi
 from models.Bullet import Bullet
 
 if __name__ == '__main__':
-    FPS = 15
+    FPS = 60
     SCREEN_W = 800
     SCREEN_H = 600
     SIZE = (SCREEN_W, SCREEN_H)
@@ -50,19 +50,6 @@ if __name__ == '__main__':
         sprites.update()
         sprites.draw(screen)
         screen.blit(text_surface, ((SCREEN_W-font_w)/2, 0))
-
-        # Get the outline of the mask then draw its points in the screen
-        for bullet in sprites:
-            olist = bullet.mask.outline()
-            true_olist = []
-            for point in olist:
-                true_point = (point[0] + bullet.rect.topleft[0], point[1] + bullet.rect.topleft[1])
-                true_olist.append(true_point)
-
-            pg.draw.polygon(screen, (200, 150, 150), true_olist, 0)
-
-        pg.display.flip()
-
         pg.display.flip()
         clock.tick(FPS)
 
