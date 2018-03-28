@@ -1,5 +1,5 @@
 import pygame as pg
-from player.UserPlayer import UserPlayer
+from models.player.UserPlayer import UserPlayer
 
 
 def change_color(screen):

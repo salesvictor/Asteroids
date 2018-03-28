@@ -1,8 +1,7 @@
 import pygame as pg
 from models.SmallSaucer import SmallSaucer
 from models.BigSaucer import BigSaucer
-from models.BigSaucer import BigSaucer
-from player.UserPlayer import UserPlayer
+from models.player.UserPlayer import UserPlayer
 
 if __name__ == '__main__':
     FPS = 60

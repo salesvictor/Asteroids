@@ -1,7 +1,6 @@
 import pygame as pg
-from math import cos, sin, radians
 
-from player.Player import Player
+from models.player.Player import Player
 
 
 class UserPlayer(Player):

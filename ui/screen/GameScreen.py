@@ -3,7 +3,7 @@ import pygame as pg
 from screen.ScreenBase import ScreenBase
 from screen.GameOverScreen import GameOverScreen
 from score.ScoreCounter import ScoreCounter
-from player.UserPlayer import UserPlayer
+from models.player.UserPlayer import UserPlayer
 from models.SmallAsteroid import SmallAsteroid
 from models.MediumAsteroid import MediumAsteroid
 from models.BigAsteroid import BigAsteroid
