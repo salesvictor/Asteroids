@@ -44,21 +44,31 @@ class Player(Ship):
                                  self.SCORE_BOX_FONT_SIZE, f"{self.score}")
         self.lives_bar = LivesBar(self.LIVES_BAR_CENTER, self.lives)
 
+    def add_life(self):
+        self.lives = min(self.MAX_LIVES, self.lives+1)
+
     def add_score(self, points):
         self.score += points
 
+        # For each 10,000 points, add an extra life:
+        if self.score//1000 > (self.score - points)//1000:
+            self.add_life()
+
+    # Check for collisions of the players bullets with other objects
     def check_bullets_collision(self, sprites_group):
         collisions = super().check_bullets_collision(sprites_group)
         for collision in collisions:
             event = collision.__class__.__name__
             self.score_counter.add_score(self, event)
 
+    # Check for collisions off the player with other objects
     def check_self_collision(self, sprites_group):
         collisions = super().check_self_collision(sprites_group)
         for collision in collisions:
             event = collision.__class__.__name__
             self.score_counter.add_score(self, event)
 
+    # Update the object based on input events
     def update(self, event=None):
         # Change the score displayed
         self.score_box.set_dialogue(f"{self.score}")
