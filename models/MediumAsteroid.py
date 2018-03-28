@@ -7,7 +7,7 @@ from models.SmallAsteroid import SmallAsteroid
 class MediumAsteroid(Asteroid):
 
     def __init__(self, screen, x=None, y=None, speed=None, vel_dir=None):
-        super().__init__(screen, 0.25, x, y, speed, vel_dir)
+        super().__init__(screen, 'medium_asteroid.png', 0.5, x, y, speed, vel_dir)
 
     def kill(self):
         groups = self.groups()  # Store the groups on which the asteroid was

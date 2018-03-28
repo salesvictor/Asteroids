@@ -10,7 +10,7 @@ class SmallSaucer(Saucer):
     def __init__(self, screen, player, x=None, y=None, speed=None,
                  vel_dir=None):
         self.bullet_timer = 0
-        super().__init__(screen, 0.35, x, y, speed, vel_dir)
+        super().__init__(screen, 'small_saucer.png', 1.2, x, y, speed, vel_dir)
         self.player = player
 
     def shoot(self):

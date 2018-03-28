@@ -8,7 +8,7 @@ class Saucer(GameObject):
     SPEED_MU = log(4/3)
     SPEED_SIGMA = 0.8
 
-    def __init__(self, screen, img_factor, x=None, y=None, speed=None,
+    def __init__(self, screen, img_file, img_factor, x=None, y=None, speed=None,
                  vel_dir=None):
         """
         Description
@@ -39,7 +39,7 @@ class Saucer(GameObject):
             vel_dir = (cos(angle), sin(angle))
 
         super().__init__(x, y, 0, vel_dir, speed, screen,
-                         'saucer.png', img_factor)
+                         img_file, img_factor)
 
         self.saucer_shot_bullets = pg.sprite.Group()
 
