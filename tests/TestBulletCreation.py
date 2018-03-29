@@ -1,9 +1,9 @@
 import pygame as pg
-from math import atan, degrees, pi
+from math import atan, degrees, pi, fabs
 from models.Bullet import Bullet
 
 if __name__ == '__main__':
-    FPS = 15
+    FPS = 30
     SCREEN_W = 800
     SCREEN_H = 600
     SIZE = (SCREEN_W, SCREEN_H)
@@ -30,12 +30,18 @@ if __name__ == '__main__':
         elif ev.type == pg.MOUSEBUTTONDOWN:
             # Creates a new bullet to go through the clicked direction and adds it to the sprite list
             click_pos = ev.dict["pos"]
-            direction = atan((click_pos[1]-SCREEN_H/2) / (click_pos[0]-SCREEN_W/2))
+            if fabs(click_pos[0]-SCREEN_W/2) > 0.00001:
+                direction = atan((click_pos[1]-SCREEN_H/2) / (click_pos[0]-SCREEN_W/2))
+            else:
+                if click_pos[1] < SCREEN_H/2:
+                    direction = -pi/2
+                else:
+                    direction = pi/2
+
             if click_pos[0] < SCREEN_W/2:
                 direction += pi
 
             direction = degrees(direction)
-
             print(direction)
 
             bullet = Bullet(screen, SCREEN_W/2, SCREEN_H/2, direction)
@@ -50,16 +56,6 @@ if __name__ == '__main__':
         sprites.update()
         sprites.draw(screen)
         screen.blit(text_surface, ((SCREEN_W-font_w)/2, 0))
-
-        # Get the outline of the mask then draw its points in the screen
-        for bullet in sprites:
-            olist = bullet.mask.outline()
-            true_olist = []
-            for point in olist:
-                true_point = (point[0] + bullet.rect.topleft[0], point[1] + bullet.rect.topleft[1])
-                true_olist.append(true_point)
-
-            pg.draw.polygon(screen, (200, 150, 150), true_olist, 0)
 
         pg.display.flip()
 

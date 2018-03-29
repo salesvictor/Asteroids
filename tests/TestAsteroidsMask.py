@@ -61,7 +61,8 @@ if __name__ == '__main__':
                 true_point = (point[0] + asteroid.rect.topleft[0], point[1] + asteroid.rect.topleft[1])
                 true_olist.append(true_point)
 
-            pg.draw.polygon(screen, (200, 150, 150), true_olist, 0)
+            if len(true_olist) > 2:
+                pg.draw.polygon(screen, (200, 150, 150), true_olist, 0)
 
         pg.display.flip()
         clock.tick(FPS)

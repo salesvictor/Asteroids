@@ -33,13 +33,12 @@ class Saucer(GameObject):
                 y = height
 
         angle = radians(uniform(0, 360))
-        if speed is None:
-            speed = 3
         if vel_dir is None:
             vel_dir = (cos(angle), sin(angle))
+        if speed is None:
+            speed = [3*vel_dir[0], 3*vel_dir[1]]
 
-        super().__init__(x, y, 0, vel_dir, speed, screen,
-                         img_file, img_factor)
+        super().__init__(x, y, 0, speed, screen, img_file, img_factor)
 
         self.saucer_shot_bullets = pg.sprite.Group()
 

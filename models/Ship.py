@@ -1,13 +1,13 @@
 import pygame as pg
-from math import cos, sin, radians
+from math import sqrt, cos, sin, radians
 from models.GameObject import GameObject
 from models.Bullet import Bullet
 
 
 class Ship(GameObject):
     #  Movement constants
-    ACCEL = 0.2
-    DEACCEL = 0.01
+    ACCELERATION_MODULE = 0.2
+    DEACCELERATION = 0.01
     MAX_SPEED = 3
     SHOT_DELAY = 10
     MAX_SHOT_BULLETS = 4
@@ -15,16 +15,22 @@ class Ship(GameObject):
     TURN_SPEED = -2
 
     def __init__(self, screen, x, y):
-        super().__init__(x, y, 90, (0, 0), 0, screen, 'ship.png', 0.1)
+        super().__init__(x, y, -90, [0, 0], screen, 'ship.png', 0.1)
         self.shot_bullets = pg.sprite.Group()
         self.time_since_discharge = self.RECHARGE_BULLETS_TIME
 
     #  Update the ship and its bullets movement
     def update(self):
-        self.vel_dir = (cos(radians(self.direction)),
-                        sin(radians(self.direction)))
-
-        self.speed = max(self.speed - self.DEACCEL, 0)
+        speed_module = sqrt(self.speed[0]**2 + self.speed[1]**2)
+        new_speed_module = max(speed_module - self.DEACCELERATION, 0)
+        if self.speed[0] == 0:
+            self.speed[0] = new_speed_module * cos(self.direction)
+        else:
+            self.speed[0] = self.speed[0] * new_speed_module / speed_module
+        if self.speed[1] == 0:
+            self.speed[1] = new_speed_module * sin(self.direction)
+        else:
+            self.speed[1] = self.speed[1] * new_speed_module / speed_module
 
         self.shot_bullets.update()
 
@@ -32,14 +38,19 @@ class Ship(GameObject):
 
         super().update()
 
-    #  Make the ship go forward
+    # Make the ship go forward
     def forward(self):
-        self.speed = min(self.speed + self.ACCEL, self.MAX_SPEED)
+        self.acceleration = [self.ACCELERATION_MODULE * cos(radians(self.direction)),
+                             self.ACCELERATION_MODULE * sin(radians(self.direction))]
+        self.speed = [self.speed[0] + self.acceleration[0], self.speed[1] + self.acceleration[1]]
+        speed_module = sqrt(self.speed[0] ** 2 + self.speed[1] ** 2)
+        new_speed_module = min(speed_module, self.MAX_SPEED)
+        self.speed = [self.speed[0] * new_speed_module / speed_module, self.speed[1] * new_speed_module / speed_module]
 
-    #  Rotate the ship
+    # Rotate the ship
     def turn(self, angle):
         self.image = pg.transform.rotate(self.original_image,
-                                         self.direction + angle)
+                                         -self.direction - angle)
         self.rect = self.image.get_rect(center=(self.x, self.y))
         self.direction += angle
 
@@ -61,9 +72,9 @@ class Ship(GameObject):
         if self.time_since_discharge > self.RECHARGE_BULLETS_TIME:
             if len(self.shot_bullets.sprites()) == 0 or \
                 (len(self.shot_bullets.sprites()) < self.MAX_SHOT_BULLETS and
-                self.shot_bullets.sprites()[-1].age > self.SHOT_DELAY):
+                 self.shot_bullets.sprites()[-1].age > self.SHOT_DELAY):
 
-                bullet = Bullet(self.screen, self.x, self.y, -self.direction)
+                bullet = Bullet(self.screen, self.x, self.y, self.direction)
                 self.shot_bullets.add(bullet)
 
                 if len(self.shot_bullets.sprites()) == self.MAX_SHOT_BULLETS:

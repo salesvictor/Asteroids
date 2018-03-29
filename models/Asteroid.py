@@ -35,13 +35,14 @@ class Asteroid(GameObject):
                 y = height
 
         angle = radians(uniform(0, 360))
-        if speed is None:
-            speed = lognormvariate(self.SPEED_MU, self.SPEED_SIGMA)
         if vel_dir is None:
             vel_dir = (cos(angle), sin(angle))
 
-        super().__init__(x, y, 0, vel_dir, speed, screen,
-                         img_file, img_factor)
+        if speed is None:
+            speed_module = lognormvariate(self.SPEED_MU, self.SPEED_SIGMA)
+            speed = [speed_module*cos(x), speed_module*sin(x)]
+
+        super().__init__(x, y, 0, speed, screen, img_file, img_factor)
 
     def update(self):
         super().update()

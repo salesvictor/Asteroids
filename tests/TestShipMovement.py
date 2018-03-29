@@ -49,8 +49,7 @@ if __name__ == '__main__':
 
         debug_text = (f'(pos, center, direction, speed, vel_dir) = '
                       f'(({player.x:3.0f}, {player.y:3.0f}), {player.rect.center}, '
-                      f'{player.direction:3d}, {player.speed:3.2f}, '
-                      f'({player.vel_dir[0]:3.2f}, {player.vel_dir[1]:3.2f}))')
+                      f'{player.direction:3d}, ({player.speed[0]:3.2f}, {player.speed[1]:3.2f}))')
         text_surface = my_font.render(debug_text, True, (255, 255, 255))
         (font_w, font_h) = text_surface.get_size()
 

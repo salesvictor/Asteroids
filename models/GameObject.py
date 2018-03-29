@@ -4,14 +4,13 @@ import pygame as pg
 
 class GameObject(pg.sprite.Sprite):
 
-    def __init__(self, x, y, direction, vel_dir, speed, screen, img_name,
+    def __init__(self, x, y, direction, speed, screen, img_name,
                  img_factor):
         super().__init__()
         self.x = x
         self.y = y
         self.speed = speed
         self.screen = screen
-        self.vel_dir = vel_dir
         self.direction = direction
 
         # Initializing object image in graphics folder
@@ -30,7 +29,7 @@ class GameObject(pg.sprite.Sprite):
         self.image = self.original_image.copy()
 
         # Rotating image
-        self.image = pg.transform.rotate(self.image, direction)
+        self.image = pg.transform.rotate(self.image, -direction)
 
         self.rect = self.image.get_rect(center=(x, y))
 
@@ -57,8 +56,8 @@ class GameObject(pg.sprite.Sprite):
 
     #  Movement updating of the object
     def update(self):
-        self.x += self.speed * self.vel_dir[0]
-        self.y -= self.speed * self.vel_dir[1]
+        self.x += self.speed[0]
+        self.y += self.speed[1]
         self.rect.center = (self.x, self.y)
         self.direction = (self.direction + 360) % 360
         self.check_on_border()

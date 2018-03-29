@@ -20,8 +20,13 @@ class BigAsteroid(Asteroid):
                     sin(radians(self.direction+spread_angle)))
         vel_dir2 = (cos(radians(self.direction-spread_angle)),
                     sin(radians(self.direction-spread_angle)))
-        speed1 = self.speed + spread_speed
-        speed2 = self.speed - spread_speed
+        speed1 = []
+        speed1.append(self.speed[0] + spread_speed*vel_dir1[0])
+        speed1.append(self.speed[1] + spread_speed*vel_dir1[1])
+
+        speed2 = []
+        speed2.append(self.speed[0] - spread_speed*vel_dir2[0])
+        speed2.append(self.speed[1] - spread_speed*vel_dir2[1])
 
         # Add two smaller asteroids to the groups
         for group in groups:
