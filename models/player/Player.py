@@ -51,7 +51,7 @@ class Player(Ship):
         self.score += points
 
         # For each 10,000 points, add an extra life:
-        if self.score//1000 > (self.score - points)//1000:
+        if self.score//10000 > (self.score - points)//10000:
             self.add_life()
 
     # Check for collisions of the players bullets with other objects
