@@ -10,9 +10,7 @@ class Asteroid(GameObject):
 
     def __init__(self, screen, img_file, img_factor, x=None, y=None, speed=None,
                  vel_dir=None):
-        """
-        Description
-        """
+        self.MAX_SPEED = 1.8
         self.ANGLE_SPEED = uniform(0, 2)
 
         if x is None and y is None:
@@ -40,7 +38,10 @@ class Asteroid(GameObject):
 
         if speed is None:
             speed_module = lognormvariate(self.SPEED_MU, self.SPEED_SIGMA)
-            speed = [speed_module*cos(x), speed_module*sin(x)]
+            speed_module = max(speed_module, self.MAX_SPEED)
+            speed = [speed_module*vel_dir[0], speed_module*vel_dir[1]]
+
+        self.speed = speed
 
         super().__init__(x, y, 0, speed, screen, img_file, img_factor)
 

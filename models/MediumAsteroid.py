@@ -14,7 +14,7 @@ class MediumAsteroid(Asteroid):
         super().kill()  # Exclude the asteroid form the groups
 
         spread_angle = gauss(0, 45)
-        spread_speed = gauss(0, 1)
+        spread_speed = gauss(0, 0.5)
 
         vel_dir1 = (cos(radians(self.direction + spread_angle)),
                     sin(radians(self.direction + spread_angle)))

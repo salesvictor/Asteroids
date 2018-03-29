@@ -74,6 +74,5 @@ class GameObject(pg.sprite.Sprite):
             pg.draw.polygon(mask_surface, (225, 225, 225), true_olist, 0)
         self.mask = pg.mask.from_surface(mask_surface)
 
-
     def get_vel_angle(self):
         pass

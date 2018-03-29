@@ -12,7 +12,7 @@ class Ship(GameObject):
     SHOT_DELAY = 10
     MAX_SHOT_BULLETS = 4
     RECHARGE_BULLETS_TIME = 70
-    TURN_SPEED = -2
+    TURN_SPEED = 3
 
     def __init__(self, screen, x, y):
         super().__init__(x, y, -90, [0, 0], screen, 'ship.png', 0.1)

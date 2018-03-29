@@ -21,4 +21,3 @@ class Bullet(GameObject):
 
     def kill(self):
         super().kill()
-        # TODO(Victor) write kill

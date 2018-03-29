@@ -18,9 +18,9 @@ class UserPlayer(Player):
         if keys[pg.K_w] or keys[pg.K_UP]:
             self.forward()
         if keys[pg.K_a] or keys[pg.K_LEFT]:
-            self.turn(self.TURN_SPEED)
-        if keys[pg.K_d] or keys[pg.K_RIGHT]:
             self.turn(-self.TURN_SPEED)
+        if keys[pg.K_d] or keys[pg.K_RIGHT]:
+            self.turn(self.TURN_SPEED)
         if keys[pg.K_SPACE]:
             self.shoot()
 
