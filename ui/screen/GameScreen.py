@@ -2,6 +2,7 @@ import pygame as pg
 
 from screen.ScreenBase import ScreenBase
 from screen.GameOverScreen import GameOverScreen
+from screen.SettingsScreen import SettingsScreen
 from score.ScoreCounter import ScoreCounter
 from models.player.UserPlayer import UserPlayer
 from models.SmallAsteroid import SmallAsteroid
@@ -48,6 +49,24 @@ class GameScreen(ScreenBase):
         self.saucers.add(self.small_saucers)
 
     def update(self, event):
+        super().update(event)
+
+        # Update the scene active sprites
+        self.active_sprites.add(self.visible_players)
+        for player in self.visible_players:
+            self.active_sprites.add(player.shot_bullets)
+        for big_saucer in self.big_saucers:
+            self.active_sprites.add(big_saucer.saucer_shot_bullets)
+        for small_saucer in self.small_saucers:
+            self.active_sprites.add(small_saucer.saucer_shot_bullets)
+        self.active_sprites.add(self.asteroids)
+        self.active_sprites.add(self.saucers)
+
+        # If esc is pressed, switch to settings screen
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_ESCAPE:
+                self.switch_to_scene(SettingsScreen(self.display, self, self.active_sprites))
+
         # Make all collisions
         for player in self.visible_players:
             player.check_bullets_collision(self.asteroids)

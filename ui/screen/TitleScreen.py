@@ -1,6 +1,7 @@
-import pygame
+import pygame as pg
 
 from screen.ScreenBase import ScreenBase
+from screen.SettingsScreen import SettingsScreen
 # TODO: Check if there is a better way to deal with cyclic imports
 from screen import HighScoresScreen, GameScreen
 from text.TextBox import TextBox
@@ -30,7 +31,7 @@ class TitleScreen(ScreenBase):
         self.score_button = TextButton(self.display, self.SCORE_BUTTON_CENTER, self.BUTTON_FONT_SIZE, "HIGH SCORES")
 
         # Create background asteroids
-        self.asteroids = pygame.sprite.Group()
+        self.asteroids = pg.sprite.Group()
         for i in range(12):
             if i % 3 == 0:
                 self.asteroids.add(SmallAsteroid(display))
@@ -40,6 +41,13 @@ class TitleScreen(ScreenBase):
                 self.asteroids.add(BigAsteroid(display))
 
     def update(self, event):
+        super().update(event)
+
+        # If esc is pressed, switch to settings screen
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_ESCAPE:
+                self.switch_to_scene(SettingsScreen(self.display, self, self.asteroids))
+
         self.play_button.update(event)
         self.score_button.update(event)
 

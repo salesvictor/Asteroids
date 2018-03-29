@@ -1,6 +1,9 @@
+import pygame as pg
+
 from screen import GameScreen
 from screen.ScreenBase import ScreenBase
 from screen.HighScoresScreen import HighScoresScreen
+from screen.SettingsScreen import SettingsScreen
 from score.ScoreCommunicator import ScoreCommunicator
 from text.TextBox import TextBox
 from text.TextEntryBox import TextEntryBox
@@ -44,6 +47,13 @@ class GameOverScreen(ScreenBase):
         self.remain_sprites = remain_sprites
 
     def update(self, event):
+        super().update(event)
+
+        # If esc is pressed, switch to settings screen
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_ESCAPE:
+                self.switch_to_scene(SettingsScreen(self.display, self, self.remain_sprites))
+
         # Update objects movement
         self.remain_sprites.update()
 

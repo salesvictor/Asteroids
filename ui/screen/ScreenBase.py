@@ -7,6 +7,7 @@ class ScreenBase:
     def __init__(self, display):
         self.next = self
         self.display = display
+        self.active_sprites = pg.sprite.Group()
 
     def process_input(self):
         event = pg.event.poll()
@@ -17,15 +18,14 @@ class ScreenBase:
         elif event.type == pg.KEYDOWN:
             alt_pressed = pressed_keys[pg.K_LALT] or \
                           pressed_keys[pg.K_RALT]
-            if event.key == pg.K_ESCAPE:
-                self.terminate()
-            elif event.key == pg.K_F4 and alt_pressed:
+            if event.key == pg.K_F4 and alt_pressed:
                 self.terminate()
 
         return event
 
     def update(self, event):
-        pass
+        if self.next is not None:
+            self.next = self
 
     def render(self):
         pass
