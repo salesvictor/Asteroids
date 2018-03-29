@@ -33,7 +33,9 @@ class TextEntryBox(TextBox):
                     self.entered_text = self.entered_text[:-1]
 
                 elif not self.has_max_characters:
-                    self.entered_text += event.unicode
+                    char = event.unicode
+                    if char.isalnum():
+                        self.entered_text += char
 
             self.dialogue = self.entered_text
             self.dialogue += '_' * (self.max_characters - len(self.entered_text))
