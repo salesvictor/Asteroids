@@ -34,8 +34,9 @@ class BigAsteroid(Asteroid):
         speed2.append(self.speed[1] - spread_speed*vel_dir2[1])
 
         # Add two smaller asteroids to the groups
+        new_asteroids = [MediumAsteroid(self.screen, self.x, self.y, speed1,
+                                        vel_dir1),
+                         MediumAsteroid(self.screen, self.x, self.y, speed2,
+                                        vel_dir2)]
         for group in groups:
-            group.add([MediumAsteroid(self.screen, self.x, self.y, speed1,
-                                      vel_dir1),
-                       MediumAsteroid(self.screen, self.x, self.y, speed2,
-                                      vel_dir2)])
+            group.add(new_asteroids)
