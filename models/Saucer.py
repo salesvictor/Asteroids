@@ -48,7 +48,8 @@ class Saucer(GameObject):
         super().update()
 
     def kill(self):
-        self.saucer_shot_bullets.empty()
+        for bullet in self.saucer_shot_bullets:
+            bullet.kill()
         super().kill()
 
     def shoot(self):
