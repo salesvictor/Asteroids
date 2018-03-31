@@ -26,6 +26,9 @@ class GameScreen(ScreenBase):
         self.visible_players = pg.sprite.Group()
         self.visible_players.add(self.player)
 
+        # Flag for game over
+        self.game_over = False
+
         # Create background asteroids
         self.asteroids = pg.sprite.Group()
         for i in range(12):
@@ -48,68 +51,26 @@ class GameScreen(ScreenBase):
         self.saucers.add(self.big_saucers)
         self.saucers.add(self.small_saucers)
 
-    def update(self, event):
-        super().update(event)
-
-        # Update the scene active sprites
+        # Add all sprites to active sprites group
         self.active_sprites.add(self.visible_players)
         for player in self.visible_players:
             self.active_sprites.add(player.shot_bullets)
-        for big_saucer in self.big_saucers:
-            self.active_sprites.add(big_saucer.saucer_shot_bullets)
-        for small_saucer in self.small_saucers:
-            self.active_sprites.add(small_saucer.saucer_shot_bullets)
-        self.active_sprites.add(self.asteroids)
         self.active_sprites.add(self.saucers)
+        for saucer in self.saucers:
+            self.active_sprites.add(saucer.saucer_shot_bullets)
+        self.active_sprites.add(self.asteroids)
+
+    def update(self, event):
+        super().update(event)
 
         # If esc is pressed, switch to settings screen
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_ESCAPE:
                 self.switch_to_scene(SettingsScreen(self.display, self, self.active_sprites))
 
-        # Make all collisions
-        for player in self.visible_players:
-            player.check_bullets_collision(self.asteroids)
-            player.check_bullets_collision(self.saucers)
-            player.check_self_collision(self.asteroids)
-            player.check_self_collision(self.saucers)
-            for big_saucer in self.big_saucers:
-                player.check_self_collision(big_saucer.saucer_shot_bullets)
-            for small_saucer in self.small_saucers:
-                player.check_self_collision(small_saucer.saucer_shot_bullets)
-
-        # Look for non-permanently-dead players (which aren't within any group
-        # of sprites)
-        # and initialize new players to them
-        for player in self.players:
-            if player not in self.visible_players and player.lives > 0:
-                reset_player = UserPlayer(player.screen, player.initialx,
-                                          player.initialy, player.number,
-                                          player.lives, player.score)
-                self.players.remove(player)
-                self.players.append(reset_player)
-                self.visible_players.add(reset_player)
-
-        # Update objects movement
-        self.visible_players.update(event)
-        self.asteroids.update()
-        self.saucers.update()
-
-        # Check if all players have permanently died and, if so, ends the game
-        game_over = True
-        for player in self.players:
-            if player.lives > 0:
-                game_over = False
-                break
-
-        if game_over:
-            self.switch_to_scene(GameOverScreen(self.display, self.players,
-                                                self.asteroids))
-
         # Todo: Create a round function to call rounds
         # If game is not over and all asteroids and saucers were destroyed, call a new round
         if not (self.asteroids.__nonzero__() or self.saucers.__nonzero__()):
-            print("next round")
             # Create asteroids
             for i in range(12):
                 if i % 3 == 0:
@@ -130,17 +91,68 @@ class GameScreen(ScreenBase):
             self.saucers.add(self.big_saucers)
             self.saucers.add(self.small_saucers)
 
+            # Add all sprites to active sprites group
+            self.active_sprites.add(self.visible_players)
+            for player in self.visible_players:
+                self.active_sprites.add(player.shot_bullets)
+            self.active_sprites.add(self.saucers)
+            for saucer in self.saucers:
+                self.active_sprites.add(saucer.saucer_shot_bullets)
+            self.active_sprites.add(self.asteroids)
+
+            # Respawn all visible players in their initial positions
+            for player in self.visible_players:
+                player.respawn()
+
+        # Make all collisions
+        for player in self.visible_players:
+            player.check_bullets_collision(self.asteroids)
+            player.check_bullets_collision(self.saucers)
+            player.check_self_collision(self.asteroids)
+            player.check_self_collision(self.saucers)
+            for big_saucer in self.big_saucers:
+                player.check_self_collision(big_saucer.saucer_shot_bullets)
+            for small_saucer in self.small_saucers:
+                player.check_self_collision(small_saucer.saucer_shot_bullets)
+
+        # Look for respawned players and add them again to visible players
+        for player in self.players:
+            if player not in self.visible_players and not player.is_dead:
+                self.visible_players.add(player)
+
+        # Update asteroids and saucers
+        self.asteroids.update()
+        self.saucers.update()
+
+        # Update the scene active sprites
+        if self.active_sprites.__nonzero__():
+            self.active_sprites.empty()
+        self.active_sprites.add(self.visible_players)
+        for player in self.visible_players:
+            self.active_sprites.add(player.shot_bullets)
+        self.active_sprites.add(self.saucers)
+        for saucer in self.saucers:
+            self.active_sprites.add(saucer.saucer_shot_bullets)
+        self.active_sprites.add(self.asteroids)
+
+        # Update players based on current active sprites
+        for player in self.players:
+            player.update(event, self.active_sprites)
+
+        # Check if all players have permanently died and, if so, ends the game
+        self.game_over = True
+        for player in self.players:
+            if player.lives > 0:
+                self.game_over = False
+                break
+
+        if self.game_over:
+            self.switch_to_scene(GameOverScreen(self.display, self.players,
+                                                self.active_sprites))
+
     # Render all text boxes and draw all sprites
     def render(self):
         self.display.fill(self.BG_COLOR)
         for player in self.players:
             player.render()
-        self.visible_players.draw(self.display)
-        for player in self.visible_players:
-            player.shot_bullets.draw(self.display)
-        for big_saucer in self.big_saucers:
-            big_saucer.saucer_shot_bullets.draw(self.display)
-        for small_saucer in self.small_saucers:
-            small_saucer.saucer_shot_bullets.draw(self.display)
-        self.asteroids.draw(self.display)
-        self.saucers.draw(self.display)
+        self.active_sprites.draw(self.display)
