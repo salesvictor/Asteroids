@@ -8,7 +8,7 @@ class Bullet(GameObject):
 
     def __init__(self, screen,  x, y, direction):
         super().__init__(x, y, direction, [self.SPEED_MODULE*cos(radians(direction)),
-                         self.SPEED_MODULE*sin(radians(direction))], screen, 'bullet.png', 0.75)
+                         self.SPEED_MODULE*sin(radians(direction))], screen, 'bullet.png', 0.9)
 
         self.age = 0  # Number of cycles since the bullet was cast
 
