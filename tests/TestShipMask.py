@@ -69,8 +69,6 @@ if __name__ == '__main__':
         if len(true_olist) > 2:
             pg.draw.polygon(screen, (200, 150, 150), true_olist, 0)
 
-        pg.draw.polygon(screen, (200, 150, 150), true_olist, 0)
-
         pg.display.flip()
         clock.tick(FPS)
 
