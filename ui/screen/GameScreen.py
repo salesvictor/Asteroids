@@ -80,11 +80,11 @@ class GameScreen(ScreenBase):
                 else:
                     self.asteroids.add(BigAsteroid(self.display))
 
-            # Creates a big saucer at the beggining
+            # Creates a big saucer at the beginning
             self.big_saucer = BigSaucer(self.display)
             # Lists all the big saucers in the game
             self.big_saucers = [self.big_saucer]
-            # Creates a small saucer at the beggining
+            # Creates a small saucer at the beginning
             self.small_saucer = SmallSaucer(self.display, self.player)
             # Lists all the small saucers in the game
             self.small_saucers = [self.small_saucer]
@@ -102,6 +102,7 @@ class GameScreen(ScreenBase):
 
             # Respawn all visible players in their initial positions
             for player in self.visible_players:
+                player.vanish()
                 player.respawn()
 
         # Make all collisions
@@ -117,27 +118,21 @@ class GameScreen(ScreenBase):
 
         # Look for respawned players and add them again to visible players
         for player in self.players:
-            if player not in self.visible_players and not player.is_dead:
+            if player not in self.visible_players and player.is_visible:
                 self.visible_players.add(player)
+                self.active_sprites.add(player)
 
-        # Update asteroids and saucers
-        self.asteroids.update()
-        self.saucers.update()
-
-        # Update the scene active sprites
-        if self.active_sprites.__nonzero__():
-            self.active_sprites.empty()
-        self.active_sprites.add(self.visible_players)
-        for player in self.visible_players:
-            self.active_sprites.add(player.shot_bullets)
-        self.active_sprites.add(self.saucers)
+        # Update all active sprites but the players
+        for sprite in self.active_sprites:
+            if sprite.__class__.__name__ not in ['Player', 'UserPlayer', 'BotPlayer']:
+                sprite.update()
         for saucer in self.saucers:
             self.active_sprites.add(saucer.saucer_shot_bullets)
-        self.active_sprites.add(self.asteroids)
 
-        # Update players based on current active sprites
+        # Update players based on active sprites
         for player in self.players:
             player.update(event, self.active_sprites)
+            self.active_sprites.add(player.shot_bullets)
 
         # Check if all players have permanently died and, if so, ends the game
         self.game_over = True

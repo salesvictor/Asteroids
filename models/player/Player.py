@@ -1,5 +1,6 @@
-from models.Ship import Ship
+import pygame as pg
 
+from models.Ship import Ship
 from text.TextBox import TextBox
 from text.LivesBar import LivesBar
 from score.ScoreCounter import ScoreCounter
@@ -11,6 +12,8 @@ class Player(Ship):
     MAX_LIVES = 5
     NAME_BOX_FONT_SIZE = 20
     SCORE_BOX_FONT_SIZE = 20
+    RESPAWN_TIME = 20
+    SPAWN_AREA_COLLIDE_RATIO = 1.2
 
     def __init__(self, screen, x, y, number, initial_lives=INITIAL_LIVES,
                  score=0):
@@ -18,11 +21,16 @@ class Player(Ship):
         self.initialx = x
         self.initialy = y
 
-        self.lives = initial_lives
+        self.lives = min(initial_lives, self.MAX_LIVES)
         self.score = score
         self.number = number
         self.name = f"PLAYER{number}"
         self.screen = screen
+
+        # Dead state
+        self.is_visible = True
+        self.time_to_respawn = 0
+        self.spawn_area_collide = pg.sprite.collide_circle_ratio(self.SPAWN_AREA_COLLIDE_RATIO)
 
         # Create an score counter for the player
         self.score_counter = ScoreCounter()
@@ -68,12 +76,31 @@ class Player(Ship):
             event = collision.__class__.__name__
             self.score_counter.add_score(self, event)
 
-    # Update the object based on input events
-    def update(self, event=None):
-        # Change the score displayed
-        self.score_box.set_dialogue(f"{self.score}")
+    # Respawn the player at the initial (x,y) position
+    def respawn(self, other_sprites=None):
+        super().__init__(self.screen, self.initialx, self.initialy)
+        safe_spawn = True
+        if other_sprites is not None:
+            for sprite in other_sprites:
+                if self.spawn_area_collide(self, sprite):
+                    safe_spawn = False
 
-        super().update()
+        if safe_spawn:
+            self.is_visible = True
+
+    # Update the object based on input events
+    def update(self, event=None, other_sprites=None):
+        if not self.is_visible and self.lives > 0:
+            if self.time_to_respawn > 0:
+                self.time_to_respawn -= 1
+            elif self.time_to_respawn == 0:
+                self.respawn(other_sprites)
+
+        else:
+            # Change the score displayed
+            self.score_box.set_dialogue(f"{self.score}")
+
+            super().update()
 
     # Render the text boxes and lives bar
     def render(self):
@@ -81,11 +108,18 @@ class Player(Ship):
         self.score_box.render()
         self.lives_bar.render(self.screen)
 
-    # Eliminates the player from the current groups
+    # Remove the player from all its groups without reducing its lives
+    def vanish(self):
+        super().kill()
+        self.is_visible = False
+
+    # Eliminate the player from the current groups
     def kill(self):
         super().kill()
         self.lives -= 1
+        self.lives_bar.set_lives(self.lives)
 
-        # If lives are reduced to zero, player permanently dies
-        if self.lives == 0:
-            self.lives_bar.set_lives(self.lives)
+        self.is_visible = False
+
+        if self.lives != 0:
+            self.time_to_respawn = self.RESPAWN_TIME

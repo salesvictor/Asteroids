@@ -6,10 +6,10 @@ from models.player.Player import Player
 class UserPlayer(Player):
     def __init__(self, screen, x, y, number, initial_lives=Player.INITIAL_LIVES,
                  score=0):
-        super().__init__(screen, x, y, number, initial_lives,score)
+        super().__init__(screen, x, y, number, initial_lives, score)
 
     # Update based on keyboard events
-    def update(self, event):
+    def update(self, event=None, other_sprites=None):
         #if event.type == pg.KEYDOWN:
         #   if event.key == pg.K_SPACE:
         #        self.shoot()
@@ -24,4 +24,4 @@ class UserPlayer(Player):
         if keys[pg.K_SPACE]:
             self.shoot()
 
-        super().update()
+        super().update(event, other_sprites)
