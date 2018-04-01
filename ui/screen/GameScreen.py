@@ -106,9 +106,10 @@ class GameScreen(ScreenBase):
                 player.respawn()
 
         # Make all collisions
-        for player in self.visible_players:
+        for player in self.players:
             player.check_bullets_collision(self.asteroids)
             player.check_bullets_collision(self.saucers)
+        for player in self.visible_players:
             player.check_self_collision(self.asteroids)
             player.check_self_collision(self.saucers)
             for big_saucer in self.big_saucers:
