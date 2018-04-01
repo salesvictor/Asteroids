@@ -28,13 +28,13 @@ class GameObject(pg.sprite.Sprite):
 
         self.image = self.original_image.copy()
 
-        # Rotating image
+        # Rotating and positioning image
         self.image = pg.transform.rotate(self.image, -direction)
-
         self.rect = self.image.get_rect(center=(x, y))
 
+        # Creating mask
+        self.mask_surface = self.image.copy()
         self.mask = pg.mask.from_surface(self.image)
-        self.mask.fill()
 
     #  Make the object reappear in the opposite side of screen
     def check_on_border(self):
@@ -63,15 +63,11 @@ class GameObject(pg.sprite.Sprite):
         self.check_on_border()
 
         # Updating masks with the inside area of the images
+        self.mask_surface = self.image.copy()
         olist = self.mask.outline()
-        true_olist = []
-        for point in olist:
-            true_point = (point[0] + self.rect.topleft[0], point[1] + self.rect.topleft[1])
-            true_olist.append(true_point)
-
         mask_surface = self.image.copy()
-        if len(true_olist) > 2:
-            pg.draw.polygon(mask_surface, (225, 225, 225), true_olist, 0)
+        if len(olist) > 2:
+            pg.draw.polygon(self.mask_surface, (200, 150, 150), olist, 0)
         self.mask = pg.mask.from_surface(mask_surface)
 
     def get_vel_angle(self):
