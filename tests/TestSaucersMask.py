@@ -59,21 +59,12 @@ if __name__ == '__main__':
         visible_players.draw(screen)
         for player in visible_players:
             player.shot_bullets.draw(screen)
-        saucers.draw(screen)
+        # Uncomment to draw sprite real image
+        # saucers.draw(screen)
         for saucer in saucers:
+            screen.blit(saucer.mask_surface, saucer.rect)
             saucer.saucer_shot_bullets.draw(screen)
         screen.blit(text_surface, ((SCREEN_W-font_w)/2, 0))
-
-        # Get the outline of the mask then draw its points in the screen
-        for saucer in saucers:
-            olist = saucer.mask.outline()
-            true_olist = []
-            for point in olist:
-                true_point = (point[0] + saucer.rect.topleft[0], point[1] + saucer.rect.topleft[1])
-                true_olist.append(true_point)
-
-            if len(true_olist) > 2:
-                pg.draw.polygon(screen, (200, 150, 150), true_olist, 0)
 
         pg.display.flip()
 

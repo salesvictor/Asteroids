@@ -51,18 +51,10 @@ if __name__ == '__main__':
         screen.fill(bg_color)
 
         asteroids.update()
-        asteroids.draw(screen)
-
-        # Get the outline of the mask then draw its points in the screen
+        # Uncomment to draw sprite real image
+        # asteroids.draw(screen)
         for asteroid in asteroids:
-            olist = asteroid.mask.outline()
-            true_olist = []
-            for point in olist:
-                true_point = (point[0] + asteroid.rect.topleft[0], point[1] + asteroid.rect.topleft[1])
-                true_olist.append(true_point)
-
-            if len(true_olist) > 2:
-                pg.draw.polygon(screen, (200, 150, 150), true_olist, 0)
+            screen.blit(asteroid.mask_surface, asteroid.rect)
 
         pg.display.flip()
         clock.tick(FPS)

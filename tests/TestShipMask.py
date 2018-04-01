@@ -56,18 +56,10 @@ if __name__ == '__main__':
         screen.fill(bg_color)
 
         sprites.update(ev)
-        sprites.draw(screen)
+        # Uncomment to draw sprite real image
+        # sprites.draw(screen)
+        screen.blit(player.mask_surface, player.rect)
         screen.blit(text_surface, ((SCREEN_W-font_w)/2, 0))
-
-        # Get the outline of the mask then draw its points in the screen
-        olist = player.mask.outline()
-        true_olist = []
-        for point in olist:
-            true_point = (point[0] + player.rect.topleft[0], point[1] + player.rect.topleft[1])
-            true_olist.append(true_point)
-
-        if len(true_olist) > 2:
-            pg.draw.polygon(screen, (200, 150, 150), true_olist, 0)
 
         pg.display.flip()
         clock.tick(FPS)
