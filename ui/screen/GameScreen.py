@@ -28,6 +28,9 @@ class GameScreen(ScreenBase):
         self.visible_players = pg.sprite.Group()
         self.visible_players.add(self.player)
 
+        # Round counter
+        self.round = 0
+
         # Flag for game over
         self.game_over = False
 
@@ -73,7 +76,7 @@ class GameScreen(ScreenBase):
             if i == 1:
                 saucer = BigSaucer(self.display)
             else:
-                saucer = SmallSaucer(self.display, self.player)
+                saucer = SmallSaucer(self.display, self.round, self.player)
 
             self.saucers.add(saucer)
             self.active_sprites.add(self.saucers)
@@ -82,11 +85,13 @@ class GameScreen(ScreenBase):
 
             # Whenever the first saucer appears in a round, other saucers will spawn
             # more often until the round is over
-            self.frames_since_saucer = 1000 + randint(1,5) * 100
+            self.frames_since_saucer = 1200 + randint(1, 5) * 100
 
         # Todo: Create a round function to call rounds
         # If game is not over and all asteroids and saucers were destroyed, call a new round
         if not (self.asteroids.__nonzero__() or self.saucers.__nonzero__()):
+            self.round += 1
+
             # Create asteroids
             for i in range(12):
                 if i % 3 == 0:

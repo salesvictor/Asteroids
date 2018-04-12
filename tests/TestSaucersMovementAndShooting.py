@@ -9,6 +9,7 @@ if __name__ == '__main__':
     SCREEN_H = 600
     SIZE = (SCREEN_W, SCREEN_H)
     BLACK = (0, 0, 0)
+    ROUND = 1
 
     pg.init()
     pg.font.init()
@@ -30,7 +31,7 @@ if __name__ == '__main__':
 
     # Creates 2 saucers
     big_saucer = BigSaucer(screen)
-    small_saucer = SmallSaucer(screen, player)
+    small_saucer = SmallSaucer(screen, 1, player)
 
     saucers.add(big_saucer)
     saucers.add(small_saucer)
@@ -47,8 +48,11 @@ if __name__ == '__main__':
                     saucer.kill()
 
         debug_text = f"bullet timer: {big_saucer.bullet_timer}"
+        debug_text2 = f"round: {ROUND}"
         text_surface = my_font.render(debug_text, True, (255, 255, 255))
+        text_surface2 = my_font.render(debug_text2, True, (255, 255, 255))
         (font_w, font_h) = text_surface.get_size()
+        (font_w2, font_h2) = text_surface2.get_size()
 
         screen.fill(BLACK)
 
@@ -63,6 +67,7 @@ if __name__ == '__main__':
         for saucer in saucers:
             saucer.saucer_shot_bullets.draw(screen)
         screen.blit(text_surface, ((SCREEN_W-font_w)/2, 0))
+        screen.blit(text_surface2, ((SCREEN_W - font_w2) / 2, font_h) )
         pg.display.flip()
         clock.tick(FPS)
 

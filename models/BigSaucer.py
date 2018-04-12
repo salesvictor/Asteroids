@@ -17,8 +17,8 @@ class BigSaucer(Saucer):
         self.saucer_shot_bullets.add(bullet)
 
     def update(self):
-        self.bullet_timer = (self.bullet_timer + 1) % 100
-        if self.bullet_timer == 50:
+        self.bullet_timer = (self.bullet_timer + 1) % 50
+        if self.bullet_timer == 25:
             self.shoot()
         
         super().update()
