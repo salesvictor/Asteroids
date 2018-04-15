@@ -3,14 +3,13 @@ from math import sqrt, cos, sin, radians
 from models.GameObject import GameObject
 from models.Bullet import Bullet
 
-
 class Ship(GameObject):
     #  Movement constants
     ACCELERATION_MODULE = 0.2
     DEACCELERATION = 0.01
     MAX_SPEED = 3
     SHOT_DELAY = 10
-    MAX_SHOT_BULLETS = 4
+    MAX_SHOTS_QUEUED = 4
     RECHARGE_BULLETS_TIME = 70
     TURN_SPEED = 3
 
@@ -18,6 +17,10 @@ class Ship(GameObject):
         super().__init__(x, y, -90, [0, 0], screen, 'ship.png', 0.1)
         self.shot_bullets = pg.sprite.Group()
         self.time_since_discharge = self.RECHARGE_BULLETS_TIME
+        # Shots limitation mechanics
+        self.shots_queue = [0, 0, 0, 0]
+        self.first_shot = 0
+        self.queued_shots = 0
 
     #  Update the ship and its bullets movement
     def update(self):
@@ -34,7 +37,17 @@ class Ship(GameObject):
 
         self.shot_bullets.update()
 
+        # Shots limitation mechanics
         self.time_since_discharge += 1
+
+        if self.shots_queue[self.first_shot] > Bullet.LIFE_TIME:
+            self.shots_queue[self.first_shot] = 0
+            self.first_shot = (self.first_shot + 1) % self.MAX_SHOTS_QUEUED
+            self.queued_shots -= 1
+
+        for i in range(self.queued_shots):
+            index = (self.first_shot+i) % self.MAX_SHOTS_QUEUED
+            self.shots_queue[index] += 1
 
         super().update()
 
@@ -69,15 +82,15 @@ class Ship(GameObject):
 
     #  Cast a bullet in the direction the ship is pointing
     def shoot(self):
-        if self.time_since_discharge > self.RECHARGE_BULLETS_TIME:
-            if len(self.shot_bullets.sprites()) == 0 or \
-                (len(self.shot_bullets.sprites()) < self.MAX_SHOT_BULLETS and
-                 self.shot_bullets.sprites()[-1].age > self.SHOT_DELAY):
+        last_shot = (self.first_shot + self.queued_shots-1) % self.MAX_SHOTS_QUEUED
+        if self.queued_shots == 0 or self.shots_queue[last_shot] > self.SHOT_DELAY:
+            if self.time_since_discharge > self.RECHARGE_BULLETS_TIME:
+                if self.queued_shots < self.MAX_SHOTS_QUEUED:
+                    bullet = Bullet(self.screen, self.x, self.y, self.direction)
+                    self.shot_bullets.add(bullet)
+                    self.queued_shots += 1
 
-                bullet = Bullet(self.screen, self.x, self.y, self.direction)
-                self.shot_bullets.add(bullet)
-
-                if len(self.shot_bullets.sprites()) == self.MAX_SHOT_BULLETS:
+                else:
                     self.time_since_discharge = 0
 
     def kill(self):
