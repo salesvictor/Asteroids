@@ -29,7 +29,7 @@ class GameScreen(ScreenBase):
         self.visible_players.add(self.player)
 
         # Round counter
-        self.round = 0
+        self.round = 1
 
         # Flag for game over
         self.game_over = False
