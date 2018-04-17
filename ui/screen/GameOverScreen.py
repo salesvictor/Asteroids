@@ -1,13 +1,13 @@
 import pygame as pg
 
-from screen import GameScreen
-from screen.ScreenBase import ScreenBase
-from screen.HighScoresScreen import HighScoresScreen
-from screen.SettingsScreen import SettingsScreen
+from ui.screen import GameScreen
+from ui.screen.ScreenBase import ScreenBase
+from ui.screen.HighScoresScreen import HighScoresScreen
+from ui.screen.SettingsScreen import SettingsScreen
 from score.ScoreCommunicator import ScoreCommunicator
-from text.TextBox import TextBox
-from text.TextEntryBox import TextEntryBox
-from text.TextButton import TextButton
+from ui.text.TextBox import TextBox
+from ui.text.TextEntryBox import TextEntryBox
+from ui.text.TextButton import TextButton
 
 
 class GameOverScreen(ScreenBase):

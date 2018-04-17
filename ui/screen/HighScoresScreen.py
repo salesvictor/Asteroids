@@ -1,11 +1,11 @@
 import pygame as pg
 
-from screen.ScreenBase import ScreenBase
-from screen.SettingsScreen import SettingsScreen
+from ui.screen.ScreenBase import ScreenBase
+from ui.screen.SettingsScreen import SettingsScreen
 # TODO: Check if there is a better way to deal with cyclic imports
-from screen import TitleScreen
-from text.TextBox import TextBox
-from text.TextButton import TextButton
+from ui.screen import TitleScreen
+from ui.text.TextBox import TextBox
+from ui.text.TextButton import TextButton
 from score.ScoreCommunicator import ScoreCommunicator
 from models.SmallAsteroid import SmallAsteroid
 from models.MediumAsteroid import MediumAsteroid

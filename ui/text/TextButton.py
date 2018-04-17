@@ -1,5 +1,5 @@
 import pygame as pg
-from text.TextBox import TextBox
+from ui.text.TextBox import TextBox
 
 
 class TextButton(TextBox):

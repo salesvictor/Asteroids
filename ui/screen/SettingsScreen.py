@@ -1,8 +1,8 @@
 import pygame as pg
 
-from screen.ScreenBase import ScreenBase
-from text.TextBox import TextBox
-from text.TextButton import TextButton
+from ui.screen.ScreenBase import ScreenBase
+from ui.text.TextBox import TextBox
+from ui.text.TextButton import TextButton
 
 
 class SettingsScreen(ScreenBase):

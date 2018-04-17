@@ -1,8 +1,8 @@
 import pygame as pg
 
 from models.Ship import Ship
-from text.TextBox import TextBox
-from text.LivesBar import LivesBar
+from ui.text.TextBox import TextBox
+from ui.text.LivesBar import LivesBar
 from score.ScoreCounter import ScoreCounter
 
 

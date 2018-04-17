@@ -2,9 +2,9 @@ import pygame as pg
 
 from random import randint
 
-from screen.ScreenBase import ScreenBase
-from screen.GameOverScreen import GameOverScreen
-from screen.SettingsScreen import SettingsScreen
+from ui.screen.ScreenBase import ScreenBase
+from ui.screen.GameOverScreen import GameOverScreen
+from ui.screen.SettingsScreen import SettingsScreen
 from score.ScoreCounter import ScoreCounter
 from models.player.UserPlayer import UserPlayer
 from models.SmallAsteroid import SmallAsteroid
