@@ -1,3 +1,4 @@
+import os
 import pygame as pg
 
 from ui.screen.ScreenBase import ScreenBase
@@ -41,7 +42,9 @@ class HighScoresScreen(ScreenBase):
         self.score_text_box = []
 
         # Create score communicator
-        self.score_communicator = ScoreCommunicator("db/scores_db.csv")
+        path = os.path.dirname(__file__)
+        path = os.path.join(path, os.pardir, os.pardir, 'db', 'scores_db.csv')
+        self.score_communicator = ScoreCommunicator(path)
 
         # Create background asteroids
         self.asteroids = pg.sprite.Group()
