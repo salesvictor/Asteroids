@@ -1,8 +1,8 @@
-import pygame as pg
 from random import randint
 
 from models.Saucer import Saucer
 from models.Bullet import Bullet
+from assets.sfx.BigSaucerSound import BigSaucerSound
 
 
 class BigSaucer(Saucer):
@@ -22,3 +22,5 @@ class BigSaucer(Saucer):
             self.shoot()
         
         super().update()
+
+        BigSaucerSound()

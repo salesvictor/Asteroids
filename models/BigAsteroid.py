@@ -1,7 +1,9 @@
 from random import gauss
 from math import cos, sin, radians, sqrt
+
 from models.Asteroid import Asteroid
 from models.MediumAsteroid import MediumAsteroid
+from assets.sfx.BigExplosionSound import BigExplosionSound
 
 
 class BigAsteroid(Asteroid):
@@ -16,6 +18,8 @@ class BigAsteroid(Asteroid):
     def kill(self):
         groups = self.groups()  # Store the groups on which the asteroid was
         super().kill()  # Exclude the asteroid from the groups
+
+        BigExplosionSound()
 
         spread_angle = gauss(0, 45)
         spread_speed = gauss(0, 1)

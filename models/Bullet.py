@@ -1,6 +1,8 @@
 import pygame as pg
 from math import sin, cos, radians
+
 from models.GameObject import GameObject
+from assets.sfx.ShootSound import ShootSound
 
 
 class Bullet(GameObject):
@@ -12,6 +14,8 @@ class Bullet(GameObject):
                          self.SPEED_MODULE*sin(radians(direction))], screen, 'bullet.png', 0.6)
 
         self.age = 0  # Number of cycles since the bullet was cast
+
+        ShootSound()
 
     def update(self):
         self.age += 1

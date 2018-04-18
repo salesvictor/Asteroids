@@ -9,6 +9,7 @@ from ui.text.TextButton import TextButton
 from models.SmallAsteroid import SmallAsteroid
 from models.MediumAsteroid import MediumAsteroid
 from models.BigAsteroid import BigAsteroid
+from assets.sfx.ThemeSong import ThemeSong
 
 
 class TitleScreen(ScreenBase):
@@ -42,6 +43,8 @@ class TitleScreen(ScreenBase):
 
     def update(self, event):
         super().update(event)
+
+        ThemeSong()
 
         # If esc is pressed, switch to settings screen
         if event.type == pg.KEYDOWN:

@@ -1,9 +1,9 @@
-import pygame as pg
 from math import atan, degrees, pi, sqrt
 from random import randint
 
 from models.Saucer import Saucer
 from models.Bullet import Bullet
+from assets.sfx.SmallSaucerSound import SmallSaucerSound
 
 
 class SmallSaucer(Saucer):
@@ -45,3 +45,5 @@ class SmallSaucer(Saucer):
             self.shoot()
 
         super().update()
+
+        SmallSaucerSound()

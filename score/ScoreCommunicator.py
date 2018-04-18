@@ -25,7 +25,7 @@ class ScoreCommunicator(object):
     def write_csv_file(self, name, score):
         self.read_csv_file()
 
-        csv_writable_file = open(self.db_file_name, 'w')
+        csv_writable_file = open(self.db_file_name, 'w+')
         score_writer = csv.writer(csv_writable_file)
         was_written = False
 

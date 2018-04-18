@@ -1,7 +1,10 @@
 import pygame as pg
+import os
 from math import cos, sin, radians, log
-from random import randint, lognormvariate, uniform
+from random import randint, uniform
+
 from models.GameObject import GameObject
+from assets.sfx.BigExplosionSound import BigExplosionSound
 
 
 class Saucer(GameObject):
@@ -52,5 +55,4 @@ class Saucer(GameObject):
             bullet.kill()
         super().kill()
 
-    def shoot(self):
-        pass
+        BigExplosionSound()

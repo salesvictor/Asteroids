@@ -1,5 +1,7 @@
 from math import sqrt
+
 from models.Asteroid import Asteroid
+from assets.sfx.SmallExplosionSound import SmallExplosionSound
 
 
 class SmallAsteroid(Asteroid):
@@ -10,3 +12,8 @@ class SmallAsteroid(Asteroid):
         speed_module = sqrt(self.speed[0] ** 2 + self.speed[1] ** 2)
         new_speed_module = min(speed_module, self.SMALL_ASTEROID_MAX_SPEED)
         self.speed = [self.speed[0] * new_speed_module/speed_module, self.speed[1] * new_speed_module/speed_module]
+
+    def kill(self):
+        super().kill()
+
+        SmallExplosionSound()

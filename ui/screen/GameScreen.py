@@ -18,6 +18,7 @@ class GameScreen(ScreenBase):
     def __init__(self, display):
         super().__init__(display)
 
+
         # Create a score counter to assign each player's score
         self.score_counter = ScoreCounter()
 

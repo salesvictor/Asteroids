@@ -1,7 +1,9 @@
 import pygame as pg
 from math import sqrt, cos, sin, radians
+
 from models.GameObject import GameObject
 from models.Bullet import Bullet
+
 
 class Ship(GameObject):
     #  Movement constants
@@ -83,6 +85,7 @@ class Ship(GameObject):
     #  Cast a bullet in the direction the ship is pointing
     def shoot(self):
         last_shot = (self.first_shot + self.queued_shots-1) % self.MAX_SHOTS_QUEUED
+
         if self.queued_shots == 0 or self.shots_queue[last_shot] > self.SHOT_DELAY:
             if self.time_since_discharge > self.RECHARGE_BULLETS_TIME:
                 if self.queued_shots < self.MAX_SHOTS_QUEUED:
