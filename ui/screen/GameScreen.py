@@ -12,12 +12,15 @@ from models.MediumAsteroid import MediumAsteroid
 from models.BigAsteroid import BigAsteroid
 from models.BigSaucer import BigSaucer
 from models.SmallSaucer import SmallSaucer
+from assets.sfx.ThemeSong import ThemeSong
 
 
 class GameScreen(ScreenBase):
     def __init__(self, display):
         super().__init__(display)
 
+        # Variable to count time for the music
+        self.count = 1
 
         # Create a score counter to assign each player's score
         self.score_counter = ScoreCounter()
@@ -61,6 +64,12 @@ class GameScreen(ScreenBase):
 
     def update(self, event):
         super().update(event)
+
+        ThemeSong(self.count)
+        if self.count < 60:
+            self.count += 1
+        else:
+            self.count = 1
 
         # If esc is pressed, switch to settings screen
         if event.type == pg.KEYDOWN:
