@@ -7,6 +7,8 @@ from ui.text.TextButton import TextButton
 
 class SettingsScreen(ScreenBase):
     SCREEN_TITLE_FONT_SIZE = 48
+    SOUND_BUTTON_FONT_SIZE = 36
+    OPTIONS_FONT_SIZE = 24
     RESUME_BUTTON_FONT_SIZE = 24
     MENU_SIZE = (600, 500)
 
@@ -17,13 +19,24 @@ class SettingsScreen(ScreenBase):
         self.display_width_factor = display.get_width() / 800
         self.display_height_factor = display.get_height() / 640
         self.SCREEN_TITLE_CENTER = (self.display_width_factor * 400, self.display_height_factor * 100)
+        self.SOUND_OPTIONS_CENTER = (self.display_width_factor * 400, self.display_height_factor * 200)
+        self.DEFAULT_CENTER = (self.display_width_factor * 250, self.display_height_factor * 250)
+        self.BONUS_CENTER = (self.display_width_factor * 400, self.display_height_factor * 250)
+        self.NONE_CENTER = (self.display_width_factor * 550, self.display_height_factor * 250)
+
+        # What's this PLAYER_BOX?
         self.PLAYER_BOX_CENTER = (self.SCREEN_TITLE_CENTER[0],
                                   self.SCREEN_TITLE_CENTER[1] + self.display_height_factor * 200)
+
         self.RESUME_BUTTON_CENTER = (self.SCREEN_TITLE_CENTER[0],
-                                     self.SCREEN_TITLE_CENTER[1] + self.display_height_factor * 200)
+                                     self.SCREEN_TITLE_CENTER[1] + self.display_height_factor * 250)
 
         # Create screen title and buttons
         self.screen_title = TextBox(self.display, self.SCREEN_TITLE_CENTER, self.SCREEN_TITLE_FONT_SIZE, "SETTINGS")
+        self.sound_options = TextBox(self.display, self.SOUND_OPTIONS_CENTER, self.SOUND_BUTTON_FONT_SIZE, "SOUND OPTIONS")
+        self.default = TextBox(self.display, self.DEFAULT_CENTER, self.OPTIONS_FONT_SIZE, "DEFAULT")
+        self.bonus = TextBox(self.display, self.BONUS_CENTER, self.OPTIONS_FONT_SIZE, "BONUS")
+        self.none = TextBox(self.display, self.NONE_CENTER, self.OPTIONS_FONT_SIZE, "NONE")
         self.resume_button = TextButton(self.display, self.RESUME_BUTTON_CENTER, self.RESUME_BUTTON_FONT_SIZE, "RESUME")
 
         # Create a rect to fill with nothing but the settings menu
@@ -56,4 +69,8 @@ class SettingsScreen(ScreenBase):
         self.remain_sprites.draw(self.display)
         self.display.fill(self.BG_COLOR, self.menu_rect)
         self.screen_title.render()
+        self.sound_options.render()
+        self.default.render()
+        self.bonus.render()
+        self.none.render()
         self.resume_button.render()
