@@ -41,7 +41,7 @@ class SmallSaucer(Saucer):
 
     def update(self):
         self.bullet_timer = (self.bullet_timer + 1) % 100
-        if self.bullet_timer == 50:
+        if self.bullet_timer == 75:
             self.shoot()
 
         super().update()

@@ -7,7 +7,7 @@ class ThemeSong():
         path = os.path.dirname(__file__)
         sound1 = pg.mixer.Sound(os.path.join(path, 'sounds', 'beat1.wav'))
         sound2 = pg.mixer.Sound(os.path.join(path, 'sounds', 'beat2.wav'))
-        if count == 1:
+        if 0 <= count <= 2:
             sound1.play()
-        elif count == 31:
+        elif 45 <= count <= 47:
             sound2.play()

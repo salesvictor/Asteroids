@@ -48,10 +48,7 @@ class TitleScreen(ScreenBase):
         super().update(event)
 
         ThemeSong(self.count)
-        if self.count < 60:
-            self.count += 1
-        else:
-            self.count = 1
+        self.count = (self.count + 1) % 90
 
         # If esc is pressed, switch to settings screen
         if event.type == pg.KEYDOWN:
