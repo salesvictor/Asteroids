@@ -1,11 +1,12 @@
 import csv
+import os
 
 
 class ScoreCommunicator(object):
     MAX_TABLE_ROWS = 50
 
     def __init__(self, db_file_name):
-        self.db_file_name = db_file_name
+        self.db_file_name = os.path.join(os.path.dirname(__file__), os.pardir, db_file_name)
         self.scores_table = []
 
     def read_csv_file(self):
@@ -58,4 +59,3 @@ class ScoreCommunicator(object):
 
         csv_writable_file = open(self.db_file_name, 'w')
         csv_writable_file.close()
-

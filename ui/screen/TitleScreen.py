@@ -1,9 +1,6 @@
 import pygame as pg
 
-from ui.screen.ScreenBase import ScreenBase
-from ui.screen.SettingsScreen import SettingsScreen
-# TODO: Check if there is a better way to deal with cyclic imports
-from ui.screen import HighScoresScreen, GameScreen
+from ui.screen import HighScoresScreen, GameScreen, ScreenBase, SettingsScreen
 from ui.text.TextBox import TextBox
 from ui.text.TextButton import TextButton
 from models.SmallAsteroid import SmallAsteroid
@@ -12,7 +9,7 @@ from models.BigAsteroid import BigAsteroid
 from assets.sfx.ThemeSong import ThemeSong
 
 
-class TitleScreen(ScreenBase):
+class TitleScreen(ScreenBase.ScreenBase):
     GAME_TITLE_FONT_SIZE = 96
     BUTTON_FONT_SIZE = 24
 
@@ -53,7 +50,7 @@ class TitleScreen(ScreenBase):
         # If esc is pressed, switch to settings screen
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_ESCAPE:
-                self.switch_to_scene(SettingsScreen(self.display, self, self.asteroids))
+                self.switch_to_scene(SettingsScreen.SettingsScreen(self.display, self, self.asteroids))
 
         self.play_button.update(event)
         self.score_button.update(event)

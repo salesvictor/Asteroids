@@ -9,6 +9,7 @@ class BigSaucer(Saucer):
 
     def __init__(self, screen, x=None, y=None, speed=None, vel_dir=None):
         self.bullet_timer = 0
+        self.sound_fader = 1
         super().__init__(screen, 'big_saucer.png', 0.7, x, y, speed, vel_dir)
 
     def shoot(self):
@@ -23,4 +24,6 @@ class BigSaucer(Saucer):
         
         super().update()
 
-        BigSaucerSound()
+        # Decreases sound_fader on each frame
+        self.sound_fader = self.sound_fader / 1.035
+        BigSaucerSound(self.sound_fader)

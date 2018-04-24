@@ -13,6 +13,7 @@ class SmallSaucer(Saucer):
     def __init__(self, screen, round, player, x=None, y=None, speed=None,
                  vel_dir=None):
         self.bullet_timer = 0
+        self.sound_fader = 1
         super().__init__(screen, 'small_saucer.png', 1.2, x, y, speed, vel_dir)
         self.round = round
         self.player = player
@@ -46,4 +47,6 @@ class SmallSaucer(Saucer):
 
         super().update()
 
-        SmallSaucerSound()
+        # Decreases sound_fader on each frame
+        self.sound_fader = self.sound_fader / 1.035
+        SmallSaucerSound(self.sound_fader)

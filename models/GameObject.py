@@ -15,7 +15,7 @@ class GameObject(pg.sprite.Sprite):
 
         # Initializing object image in graphics folder
         path = os.path.dirname(__file__)
-        path = os.path.join(path, '..\\assets\\graphics', img_name)
+        path = os.path.join(path, os.pardir, "assets", "graphics", img_name)
         self.original_image = pg.image.load(path).convert()
         self.original_image.set_colorkey((0, 0, 0))
 
