@@ -3,7 +3,7 @@ from math import cos, sin, radians, sqrt
 
 from models.Asteroid import Asteroid
 from models.MediumAsteroid import MediumAsteroid
-from assets.sfx.BigExplosionSound import BigExplosionSound
+from assets.sfx.Sounds import Sounds
 
 
 class BigAsteroid(Asteroid):
@@ -19,7 +19,7 @@ class BigAsteroid(Asteroid):
         groups = self.groups()  # Store the groups on which the asteroid was
         super().kill()  # Exclude the asteroid from the groups
 
-        BigExplosionSound()
+        Sounds.big_explosion_sound()
 
         spread_angle = gauss(0, 45)
         spread_speed = gauss(0, 1)

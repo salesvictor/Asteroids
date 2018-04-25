@@ -8,6 +8,7 @@ from score.ScoreCommunicator import ScoreCommunicator
 from ui.text.TextBox import TextBox
 from ui.text.TextEntryBox import TextEntryBox
 from ui.text.TextButton import TextButton
+from assets.sfx.Sounds import Sounds
 
 
 class GameOverScreen(ScreenBase):
@@ -17,6 +18,9 @@ class GameOverScreen(ScreenBase):
 
     def __init__(self, display, players, remain_sprites):
         super().__init__(display)
+
+        # Game Over music
+        Sounds.game_over()
 
         self.score_communicator = ScoreCommunicator('db/scores_db.csv')
 

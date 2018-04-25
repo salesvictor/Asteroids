@@ -6,7 +6,7 @@ from ui.text.TextButton import TextButton
 from models.SmallAsteroid import SmallAsteroid
 from models.MediumAsteroid import MediumAsteroid
 from models.BigAsteroid import BigAsteroid
-from assets.sfx.ThemeSong import ThemeSong
+from assets.sfx.Sounds import Sounds
 
 
 class TitleScreen(ScreenBase.ScreenBase):
@@ -44,7 +44,7 @@ class TitleScreen(ScreenBase.ScreenBase):
     def update(self, event):
         super().update(event)
 
-        ThemeSong(self.count)
+        Sounds.theme_song(self.count)
         self.count = (self.count + 1) % 90
 
         # If esc is pressed, switch to settings screen

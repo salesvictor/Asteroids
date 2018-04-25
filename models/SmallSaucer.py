@@ -3,7 +3,7 @@ from random import randint
 
 from models.Saucer import Saucer
 from models.Bullet import Bullet
-from assets.sfx.SmallSaucerSound import SmallSaucerSound
+from assets.sfx.Sounds import Sounds
 
 
 class SmallSaucer(Saucer):
@@ -49,4 +49,4 @@ class SmallSaucer(Saucer):
 
         # Decreases sound_fader on each frame
         self.sound_fader = self.sound_fader / 1.035
-        SmallSaucerSound(self.sound_fader)
+        Sounds.small_saucer_sound(self.sound_fader)

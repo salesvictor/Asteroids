@@ -3,7 +3,7 @@ from math import sqrt, cos, sin, radians
 
 from models.GameObject import GameObject
 from models.Bullet import Bullet
-from assets.sfx.BigExplosionSound import BigExplosionSound
+from assets.sfx.Sounds import Sounds
 
 
 class Ship(GameObject):
@@ -100,4 +100,4 @@ class Ship(GameObject):
     def kill(self):
         super().kill()
 
-        BigExplosionSound()
+        Sounds.big_explosion_sound()

@@ -12,14 +12,14 @@ from models.MediumAsteroid import MediumAsteroid
 from models.BigAsteroid import BigAsteroid
 from models.BigSaucer import BigSaucer
 from models.SmallSaucer import SmallSaucer
-from assets.sfx.ThemeSong import ThemeSong
+from assets.sfx.Sounds import Sounds
 
 
 class GameScreen(ScreenBase):
     def __init__(self, display):
         super().__init__(display)
 
-        # Variable to count time for the music
+        # Variable counting frames for theme music
         self.count = 1
 
         # Create a score counter to assign each player's score
@@ -65,7 +65,7 @@ class GameScreen(ScreenBase):
     def update(self, event):
         super().update(event)
 
-        ThemeSong(self.count)
+        Sounds.theme_song(self.count)
         self.count = (self.count + 1) % 90
 
         # If esc is pressed, switch to settings screen

@@ -1,7 +1,7 @@
 from math import sqrt
 
 from models.Asteroid import Asteroid
-from assets.sfx.SmallExplosionSound import SmallExplosionSound
+from assets.sfx.Sounds import Sounds
 
 
 class SmallAsteroid(Asteroid):
@@ -16,4 +16,4 @@ class SmallAsteroid(Asteroid):
     def kill(self):
         super().kill()
 
-        SmallExplosionSound()
+        Sounds.small_explosion_sound()

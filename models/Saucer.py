@@ -4,7 +4,7 @@ from math import cos, sin, radians, log
 from random import randint, uniform
 
 from models.GameObject import GameObject
-from assets.sfx.BigExplosionSound import BigExplosionSound
+from assets.sfx.Sounds import Sounds
 
 
 class Saucer(GameObject):
@@ -55,4 +55,4 @@ class Saucer(GameObject):
             bullet.kill()
         super().kill()
 
-        BigExplosionSound()
+        Sounds.big_explosion_sound()

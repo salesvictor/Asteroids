@@ -3,6 +3,7 @@ import pygame as pg
 from ui.screen.ScreenBase import ScreenBase
 from ui.text.TextBox import TextBox
 from ui.text.TextButton import TextButton
+from assets.sfx.Sounds import Sounds
 
 
 class SettingsScreen(ScreenBase):
@@ -33,10 +34,11 @@ class SettingsScreen(ScreenBase):
 
         # Create screen title and buttons
         self.screen_title = TextBox(self.display, self.SCREEN_TITLE_CENTER, self.SCREEN_TITLE_FONT_SIZE, "SETTINGS")
-        self.sound_options = TextBox(self.display, self.SOUND_OPTIONS_CENTER, self.SOUND_BUTTON_FONT_SIZE, "SOUND OPTIONS")
-        self.default = TextBox(self.display, self.DEFAULT_CENTER, self.OPTIONS_FONT_SIZE, "DEFAULT")
-        self.bonus = TextBox(self.display, self.BONUS_CENTER, self.OPTIONS_FONT_SIZE, "BONUS")
-        self.none = TextBox(self.display, self.NONE_CENTER, self.OPTIONS_FONT_SIZE, "NONE")
+        self.sound_options = TextBox(self.display, self.SOUND_OPTIONS_CENTER, self.SOUND_BUTTON_FONT_SIZE,
+                                     "SOUND OPTIONS")
+        self.default = TextButton(self.display, self.DEFAULT_CENTER, self.OPTIONS_FONT_SIZE, "DEFAULT")
+        self.bonus = TextButton(self.display, self.BONUS_CENTER, self.OPTIONS_FONT_SIZE, "BONUS")
+        self.none = TextButton(self.display, self.NONE_CENTER, self.OPTIONS_FONT_SIZE, "NONE")
         self.resume_button = TextButton(self.display, self.RESUME_BUTTON_CENTER, self.RESUME_BUTTON_FONT_SIZE, "RESUME")
 
         # Create a rect to fill with nothing but the settings menu
@@ -57,6 +59,21 @@ class SettingsScreen(ScreenBase):
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_ESCAPE:
                 self.switch_to_scene(self.previous_scene)
+
+        # If default is pressed change sound_param
+        self.default.update(event)
+        if self.default.get_clicked():
+            Sounds.sound_param = 1
+
+        # If bonus is pressed change sound_param
+        self.bonus.update(event)
+        if self.bonus.get_clicked():
+            Sounds.sound_param = 2
+
+        # If none is pressed change sound_param
+        self.none.update(event)
+        if self.none.get_clicked():
+            Sounds.sound_param = 0
 
         # If resume button is clicked, back to the previous scene
         self.resume_button.update(event)
