@@ -9,7 +9,7 @@ from assets.sfx.Sounds import Sounds
 class Ship(GameObject):
     #  Movement constants
     ACCELERATION_MODULE = 0.2
-    DEACCELERATION = 0.01
+    DEACCELERATION = 0.03
     MAX_SPEED = 3
     SHOT_DELAY = 10
     MAX_SHOTS_QUEUED = 4
@@ -18,6 +18,7 @@ class Ship(GameObject):
 
     def __init__(self, screen, x, y):
         super().__init__(x, y, -90, [0, 0], screen, 'ship.png', 0.1)
+        self.acceleration = 0
         self.shot_bullets = pg.sprite.Group()
         self.time_since_discharge = self.RECHARGE_BULLETS_TIME
         # Shots limitation mechanics
