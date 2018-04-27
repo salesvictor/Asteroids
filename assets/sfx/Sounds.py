@@ -101,9 +101,7 @@ class Sounds:
             sound2 = pg.mixer.Sound(os.path.join(path, 'sounds', 'beat2Danieel.wav'))
         if self.sound_param != 0:
             timer = time.clock()
-            print(self.period)
             if timer - self.theme_song_timer > self.period:
-                print(timer - self.theme_song_timer)
                 if self.beat == 0:
                     sound1.play()
                 elif self.beat == 1:
