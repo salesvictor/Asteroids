@@ -16,6 +16,9 @@ class TitleScreen(ScreenBase.ScreenBase):
     def __init__(self, display):
         super().__init__(display)
 
+        # Title screen music
+        Sounds.play_title_song()
+
         # Calculate position of game title and buttons
         self.display_width_factor = display.get_width()/800
         self.display_height_factor = display.get_height()/640

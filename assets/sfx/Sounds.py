@@ -4,9 +4,10 @@ import time
 
 
 class Sounds:
+    playing = False
     sound_param = 1
     INITIAL_PERIOD = 1.0
-    MIN_PERIOD = 0.2
+    MIN_PERIOD = 0.25
 
     def __init__(self):
         self.theme_song_timer = time.clock()
@@ -88,6 +89,28 @@ class Sounds:
             cls.path = os.path.join(cls.path, 'sounds', 'gameOverDanieel.wav')
             game_over = pg.mixer.Sound(cls.path)
             game_over.play()
+
+    @classmethod
+    def play_title_song(cls):
+        if cls.sound_param != 0 and not cls.playing:
+            path = os.path.dirname(__file__)
+            path = os.path.join(path, 'sounds', 'interstellarTheme.wav')
+            pg.mixer.music.load(path)
+            pg.mixer.music.play(-1)
+            cls.playing = True
+
+    @classmethod
+    def pause_title_song(cls):
+        pg.mixer.music.pause()
+
+    @classmethod
+    def unpause_title_song(cls):
+        pg.mixer.music.unpause()
+
+    @classmethod
+    def stop_title_song(cls):
+        pg.mixer.music.stop()
+        cls.playing = False
 
     def theme_song(self):
         path = os.path.dirname(__file__)

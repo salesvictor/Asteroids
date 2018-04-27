@@ -19,8 +19,11 @@ class GameScreen(ScreenBase):
     def __init__(self, display):
         super().__init__(display)
 
-        # Factor for decreasing of the beat period
+        # Setting sounds
         self.sounds = Sounds()
+        Sounds.stop_title_song()
+
+        # Factor for decreasing of the beat period
         self.period_factor = 3e-4
 
         # Create a score counter to assign each player's score

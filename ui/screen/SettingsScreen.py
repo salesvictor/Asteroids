@@ -64,23 +64,26 @@ class SettingsScreen(ScreenBase):
         self.default.update(event)
         if self.default.get_clicked():
             Sounds.sound_param = 1
+            Sounds.unpause_title_song()
 
         # If bonus is pressed change sound_param
         self.bonus.update(event)
         if self.bonus.get_clicked():
             Sounds.sound_param = 2
+            Sounds.unpause_title_song()
 
         # If none is pressed change sound_param
         self.none.update(event)
         if self.none.get_clicked():
             Sounds.sound_param = 0
+            Sounds.pause_title_song()
 
         # If resume button is clicked, back to the previous scene
         self.resume_button.update(event)
         if self.resume_button.get_clicked():
             self.switch_to_scene(self.previous_scene)
 
-        # If main menun button is clicked, switches to title screen
+        # If main menu button is clicked, switches to title screen
         self.main_menu_button.update(event)
         if self.main_menu_button.get_clicked():
             self.switch_to_scene(TitleScreen.TitleScreen(self.display))
