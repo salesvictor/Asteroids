@@ -1,3 +1,4 @@
+import os
 import sys
 import pygame
 
@@ -14,6 +15,7 @@ def main(args, fps):
         print('Usage:\n  asteroids.py width heigth.\nExample:\n  asteroids.py 800 640\n')
         return
 
+    os.makedirs('db', exist_ok=True)
     pygame.mixer.pre_init(44100, -16, 2,  512)
     pygame.init()
     screen = pygame.display.set_mode(size)
