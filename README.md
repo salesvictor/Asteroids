@@ -7,3 +7,8 @@ with Object Oriented Programming and **Pygame** in a fun and creative way. It
 will be evaluated as the CES-22 first project.
 
 ![Game Example Screenshot](assets/graphics/example_screenshot.jpg)
+
+### Dependencies
+For the game to tun properly, you will need:
+* Python 3.6
+* PyGame
