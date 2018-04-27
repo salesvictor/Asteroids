@@ -16,78 +16,81 @@ class Sounds:
 
     @classmethod
     def big_explosion_sound(cls):
-        cls.path = os.path.dirname(__file__)
+        path = os.path.dirname(__file__)
         if cls.sound_param == 1:
-            cls.path = os.path.join(cls.path, 'sounds', 'bigCollision.wav')
+            path = os.path.join(path, 'sounds', 'bigCollision.wav')
         elif cls.sound_param == 2:
-            cls.path = os.path.join(cls.path, 'sounds', 'bigCollisionDanieel.wav')
+            path = os.path.join(path, 'sounds', 'bigCollisionDanieel.wav')
         if cls.sound_param != 0:
-            big_explosion = pg.mixer.Sound(cls.path)
+            big_explosion = pg.mixer.Sound(path)
             big_explosion.play()
 
     @classmethod
     def shoot_sound(cls):
-        cls.path = os.path.dirname(__file__)
+        path = os.path.dirname(__file__)
         if cls.sound_param == 1:
-            cls.path = os.path.join(cls.path, 'sounds', 'bullet.wav')
+            path = os.path.join(path, 'sounds', 'bullet.wav')
         elif cls.sound_param == 2:
-            cls.path = os.path.join(cls.path, 'sounds', 'bulletDanieel.wav')
+            path = os.path.join(path, 'sounds', 'bulletDanieel.wav')
         if cls.sound_param != 0:
-            shoot = pg.mixer.Sound(cls.path)
+            shoot = pg.mixer.Sound(path)
             shoot.play()
 
     @classmethod
     def small_saucer_sound(cls, sound_fader):
-        cls.path = os.path.dirname(__file__)
+        path = os.path.dirname(__file__)
         if cls.sound_param == 1:
-            cls.path = os.path.join(cls.path, 'sounds', 'saucerSmall.wav')
+            path = os.path.join(path, 'sounds', 'saucerSmall.wav')
         elif cls.sound_param == 2:
-            cls.path = os.path.join(cls.path, 'sounds', 'saucerSmallDanieel.wav')
+            path = os.path.join(path, 'sounds', 'saucerSmallDanieel.wav')
         if cls.sound_param != 0:
-            small_saucer_sound = pg.mixer.Sound(cls.path)
+            small_saucer_sound = pg.mixer.Sound(path)
             small_saucer_sound.set_volume(sound_fader)
             small_saucer_sound.play()
 
     @classmethod
     def big_saucer_sound(cls, sound_fader):
-        cls.path = os.path.dirname(__file__)
+        path = os.path.dirname(__file__)
         if cls.sound_param == 1:
-            cls.path = os.path.join(cls.path, 'sounds', 'saucerBig.wav')
+            path = os.path.join(path, 'sounds', 'saucerBig.wav')
         elif cls.sound_param == 2:
-            cls.path = os.path.join(cls.path, 'sounds', 'saucerBigDanieel.wav')
+            path = os.path.join(path, 'sounds', 'saucerBigDanieel.wav')
         if cls.sound_param != 0:
-            big_saucer_sound = pg.mixer.Sound(cls.path)
+            big_saucer_sound = pg.mixer.Sound(path)
             big_saucer_sound.set_volume(sound_fader)
             big_saucer_sound.play()
 
     @classmethod
     def small_explosion_sound(cls):
-        cls.path = os.path.dirname(__file__)
+        path = os.path.dirname(__file__)
         if cls.sound_param == 1:
-            cls.path = os.path.join(cls.path, 'sounds', 'smallCollision.wav')
+            path = os.path.join(path, 'sounds', 'smallCollision.wav')
         elif cls.sound_param == 2:
-            cls.path = os.path.join(cls.path, 'sounds', 'smallCollisionDanieel.wav')
+            path = os.path.join(path, 'sounds', 'smallCollisionDanieel.wav')
         if cls.sound_param != 0:
-            small_explosion = pg.mixer.Sound(cls.path)
+            small_explosion = pg.mixer.Sound(path)
             small_explosion.play()
 
     @classmethod
     def medium_explosion_sound(cls):
-        cls.path = os.path.dirname(__file__)
+        path = os.path.dirname(__file__)
         if cls.sound_param == 1:
-            cls.path = os.path.join(cls.path, 'sounds', 'mediumCollision.wav')
+            path = os.path.join(path, 'sounds', 'mediumCollision.wav')
         elif cls.sound_param == 2:
-            cls.path = os.path.join(cls.path, 'sounds', 'mediumCollisionDanieel.wav')
+            path = os.path.join(path, 'sounds', 'mediumCollisionDanieel.wav')
         if cls.sound_param != 0:
-            medium_explosion = pg.mixer.Sound(cls.path)
+            medium_explosion = pg.mixer.Sound(path)
             medium_explosion.play()
 
     @classmethod
     def game_over(cls):
-        cls.path = os.path.dirname(__file__)
-        if cls.sound_param == 2:
-            cls.path = os.path.join(cls.path, 'sounds', 'gameOverDanieel.wav')
-            game_over = pg.mixer.Sound(cls.path)
+        path = os.path.dirname(__file__)
+        if cls.sound_param == 1:
+            path = os.path.join(path, 'sounds', 'gameOver.wav')
+        elif cls.sound_param == 2:
+            path = os.path.join(path, 'sounds', 'gameOverDanieel.wav')
+        if cls.sound_param != 0:
+            game_over = pg.mixer.Sound(path)
             game_over.play()
 
     @classmethod
