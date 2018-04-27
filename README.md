@@ -9,7 +9,13 @@ will be evaluated as the CES-22 first project.
 ![Game Example Screenshot](assets/graphics/example_screenshot.jpg)
 
 ### Dependencies
+<<<<<<< HEAD
 For the game to run properly, assure that you have:
 \item Python 3.6
 \item PyGame
 
+=======
+For the game to tun properly, you will need:
+* Python 3.6
+* PyGame
+>>>>>>> master

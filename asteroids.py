@@ -7,13 +7,14 @@ from ui.screen.TitleScreen import TitleScreen
 def main(args, fps):
 
     if not args:
-        size = (800, 640)
+        size = (640, 480)
     elif len(args) == 2:
         size = (float(args[1]), float(args[2]))
     else:
         print('Usage:\n  asteroids.py width heigth.\nExample:\n  asteroids.py 800 640\n')
         return
 
+    pygame.mixer.pre_init(44100, -16, 2,  512)
     pygame.init()
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()

@@ -19,8 +19,12 @@ class GameScreen(ScreenBase):
     def __init__(self, display):
         super().__init__(display)
 
-        # Variable counting frames for theme music
-        self.count = 1
+        # Setting sounds
+        self.sounds = Sounds()
+        Sounds.stop_title_song()
+
+        # Factor for decreasing of the beat period
+        self.period_factor = 3e-4
 
         # Create a score counter to assign each player's score
         self.score_counter = ScoreCounter()
@@ -65,8 +69,9 @@ class GameScreen(ScreenBase):
     def update(self, event):
         super().update(event)
 
-        Sounds.theme_song(self.count)
-        self.count = (self.count + 1) % 90
+        # Play back beat
+        self.sounds.theme_song()
+        self.sounds.set_period(self.sounds.period - self.period_factor)
 
         # If esc is pressed, switch to settings screen
         if event.type == pg.KEYDOWN:
@@ -98,6 +103,9 @@ class GameScreen(ScreenBase):
         # If game is not over and all asteroids and saucers were destroyed, call a new round
         if not (self.asteroids.__nonzero__() or self.saucers.__nonzero__()):
             self.round += 1
+
+            # Reset back beat period
+            self.sounds.set_period(Sounds.INITIAL_PERIOD)
 
             # Create asteroids
             for i in range(12):

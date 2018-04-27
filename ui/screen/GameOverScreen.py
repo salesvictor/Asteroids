@@ -4,6 +4,7 @@ from ui.screen import GameScreen
 from ui.screen.ScreenBase import ScreenBase
 from ui.screen.HighScoresScreen import HighScoresScreen
 from ui.screen.SettingsScreen import SettingsScreen
+from ui.screen import TitleScreen
 from score.ScoreCommunicator import ScoreCommunicator
 from ui.text.TextBox import TextBox
 from ui.text.TextEntryBox import TextEntryBox
@@ -34,6 +35,8 @@ class GameOverScreen(ScreenBase):
                                              self.PLAYER_BOX_CENTER[1] + self.display_height_factor * 50)
         self.RETRY_BUTTON_CENTER = (self.PLAYER_NAME_ENTRY_BOX_CENTER[0],
                                     self.PLAYER_NAME_ENTRY_BOX_CENTER[1] + self.display_height_factor * 100)
+        self.MAIN_MENU_BUTTON_CENTER = (self.RETRY_BUTTON_CENTER[0],
+                                        self.RETRY_BUTTON_CENTER[1] + self.display_width_factor * 50)
 
         # Create screen title and buttons
         self.screen_title = TextBox(self.display, self.SCREEN_TITLE_CENTER, self.SCREEN_TITLE_FONT_SIZE, "GAME OVER")
@@ -41,6 +44,8 @@ class GameOverScreen(ScreenBase):
         self.player_name_entry_box = TextEntryBox(self.display, self.PLAYER_NAME_ENTRY_BOX_CENTER,
                                                   self.PLAYER_NAME_ENTRY_BOX_FONT_SIZE)
         self.retry_button = TextButton(self.display, self.RETRY_BUTTON_CENTER, self.RETRY_BUTTON_FONT_SIZE, "RETRY")
+        self.main_menu_button = TextButton(self.display, self.MAIN_MENU_BUTTON_CENTER, self.RETRY_BUTTON_FONT_SIZE,
+                                           "MAIN MENU")
 
         # Receive players information
         self.players = []
@@ -79,9 +84,13 @@ class GameOverScreen(ScreenBase):
 
         # If retry button is clicked, game is restarted ignoring actual player's name
         self.retry_button.update(event)
-
         if self.retry_button.get_clicked():
             self.switch_to_scene(GameScreen.GameScreen(self.display))
+
+        # If main menun button is clicked, switches to title screen
+        self.main_menu_button.update(event)
+        if self.main_menu_button.get_clicked():
+            self.switch_to_scene(TitleScreen.TitleScreen(self.display))
 
     # Render all text boxes and draw all sprites
     def render(self):
@@ -90,4 +99,5 @@ class GameOverScreen(ScreenBase):
         self.player_box.render()
         self.player_name_entry_box.render()
         self.retry_button.render()
+        self.main_menu_button.render()
         self.remain_sprites.draw(self.display)

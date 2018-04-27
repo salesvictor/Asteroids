@@ -13,7 +13,7 @@ class Ship(GameObject):
     MAX_SPEED = 3
     SHOT_DELAY = 10
     MAX_SHOTS_QUEUED = 4
-    RECHARGE_BULLETS_TIME = 70
+    RECHARGE_BULLETS_TIME = 30
     TURN_SPEED = 3
 
     def __init__(self, screen, x, y):

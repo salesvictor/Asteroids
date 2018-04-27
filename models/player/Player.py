@@ -54,6 +54,7 @@ class Player(Ship):
 
     def add_life(self):
         self.lives = min(self.MAX_LIVES, self.lives+1)
+        self.lives_bar.set_lives(self.lives)
 
     def add_score(self, points):
         self.score += points

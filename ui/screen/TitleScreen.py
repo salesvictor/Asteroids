@@ -16,8 +16,8 @@ class TitleScreen(ScreenBase.ScreenBase):
     def __init__(self, display):
         super().__init__(display)
 
-        # Variable to count time for the music
-        self.count = 1
+        # Title screen music
+        Sounds.play_title_song()
 
         # Calculate position of game title and buttons
         self.display_width_factor = display.get_width()/800
@@ -43,9 +43,6 @@ class TitleScreen(ScreenBase.ScreenBase):
 
     def update(self, event):
         super().update(event)
-
-        Sounds.theme_song(self.count)
-        self.count = (self.count + 1) % 90
 
         # If esc is pressed, switch to settings screen
         if event.type == pg.KEYDOWN:
