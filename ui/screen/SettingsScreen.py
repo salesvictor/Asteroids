@@ -4,6 +4,7 @@ from ui.screen.ScreenBase import ScreenBase
 from ui.text.TextBox import TextBox
 from ui.text.TextButton import TextButton
 from assets.sfx.Sounds import Sounds
+from ui.screen import TitleScreen
 
 
 class SettingsScreen(ScreenBase):
@@ -23,14 +24,11 @@ class SettingsScreen(ScreenBase):
         self.SOUND_OPTIONS_CENTER = (self.display_width_factor * 400, self.display_height_factor * 200)
         self.DEFAULT_CENTER = (self.display_width_factor * 250, self.display_height_factor * 250)
         self.BONUS_CENTER = (self.display_width_factor * 400, self.display_height_factor * 250)
-        self.NONE_CENTER = (self.display_width_factor * 550, self.display_height_factor * 250)
-
-        # What's this PLAYER_BOX?
-        self.PLAYER_BOX_CENTER = (self.SCREEN_TITLE_CENTER[0],
-                                  self.SCREEN_TITLE_CENTER[1] + self.display_height_factor * 200)
-
+        self.MUTE_CENTER = (self.display_width_factor * 550, self.display_height_factor * 250)
         self.RESUME_BUTTON_CENTER = (self.SCREEN_TITLE_CENTER[0],
                                      self.SCREEN_TITLE_CENTER[1] + self.display_height_factor * 250)
+        self.MAIN_MENU_CENTER = (self.RESUME_BUTTON_CENTER[0],
+                                 self.RESUME_BUTTON_CENTER[1] + self.display_height_factor * 50)
 
         # Create screen title and buttons
         self.screen_title = TextBox(self.display, self.SCREEN_TITLE_CENTER, self.SCREEN_TITLE_FONT_SIZE, "SETTINGS")
@@ -38,8 +36,10 @@ class SettingsScreen(ScreenBase):
                                      "SOUND OPTIONS")
         self.default = TextButton(self.display, self.DEFAULT_CENTER, self.OPTIONS_FONT_SIZE, "DEFAULT")
         self.bonus = TextButton(self.display, self.BONUS_CENTER, self.OPTIONS_FONT_SIZE, "BONUS")
-        self.none = TextButton(self.display, self.NONE_CENTER, self.OPTIONS_FONT_SIZE, "NONE")
+        self.none = TextButton(self.display, self.MUTE_CENTER, self.OPTIONS_FONT_SIZE, "MUTE")
         self.resume_button = TextButton(self.display, self.RESUME_BUTTON_CENTER, self.RESUME_BUTTON_FONT_SIZE, "RESUME")
+        self.main_menu_button = TextButton(self.display, self.MAIN_MENU_CENTER, self.RESUME_BUTTON_FONT_SIZE,
+                                           "MAIN MENU")
 
         # Create a rect to fill with nothing but the settings menu
         self.menu_rect = pg.Rect(self.display.get_width()/2 - self.display_height_factor * self.MENU_SIZE[0]/2,
@@ -80,6 +80,11 @@ class SettingsScreen(ScreenBase):
         if self.resume_button.get_clicked():
             self.switch_to_scene(self.previous_scene)
 
+        # If main menun button is clicked, switches to title screen
+        self.main_menu_button.update(event)
+        if self.main_menu_button.get_clicked():
+            self.switch_to_scene(TitleScreen.TitleScreen(self.display))
+
     # Render all text boxes and draw all sprites
     def render(self):
         self.display.fill(self.BG_COLOR)
@@ -91,3 +96,4 @@ class SettingsScreen(ScreenBase):
         self.bonus.render()
         self.none.render()
         self.resume_button.render()
+        self.main_menu_button.render()
