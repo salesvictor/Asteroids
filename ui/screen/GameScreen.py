@@ -3,8 +3,8 @@ import pygame as pg
 from random import randint
 
 from ui.screen.ScreenBase import ScreenBase
-from ui.screen.GameOverScreen import GameOverScreen
 from ui.screen.SettingsScreen import SettingsScreen
+from ui.screen.GameOverScreen import GameOverScreen
 from score.ScoreCounter import ScoreCounter
 from models.player.UserPlayer import UserPlayer
 from models.asteroid.SmallAsteroid import SmallAsteroid
@@ -174,4 +174,5 @@ class GameScreen(ScreenBase):
         self.display.fill(self.BG_COLOR)
         for player in self.players:
             player.render()
+            player.draw_debug()
         self.active_sprites.draw(self.display)
