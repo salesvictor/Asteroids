@@ -1,6 +1,6 @@
 from random import randint
 
-from models.Saucer import Saucer
+from models.saucer.Saucer import Saucer
 from models.Bullet import Bullet
 from assets.sfx.Sounds import Sounds
 

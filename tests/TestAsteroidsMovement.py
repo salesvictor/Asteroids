@@ -1,7 +1,7 @@
 import pygame as pg
-from models.SmallAsteroid import SmallAsteroid
-from models.MediumAsteroid import MediumAsteroid
-from models.BigAsteroid import BigAsteroid
+from models.asteroid.SmallAsteroidAsteroid import SmallAsteroid
+from models.asteroid.MediumAsteroid import MediumAsteroid
+from models.asteroid.BigAsteroid import BigAsteroid
 
 def change_color(screen):
     color = screen.get_at((0, 0))

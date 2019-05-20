@@ -1,8 +1,8 @@
 from random import gauss
 from math import cos, sin, radians, sqrt
 
-from models.Asteroid import Asteroid
-from models.MediumAsteroid import MediumAsteroid
+from models.asteroid.Asteroid import Asteroid
+from models.asteroid.MediumAsteroid import MediumAsteroid
 from assets.sfx.Sounds import Sounds
 
 

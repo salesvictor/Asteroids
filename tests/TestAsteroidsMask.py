@@ -1,7 +1,7 @@
 import pygame as pg
-from models.SmallAsteroid import SmallAsteroid
-from models.MediumAsteroid import MediumAsteroid
-from models.BigAsteroid import BigAsteroid
+from models.asteroid.SmallAsteroid import SmallAsteroid
+from models.asteroid.MediumAsteroid import MediumAsteroid
+from models.asteroid.BigAsteroid import BigAsteroid
 
 def change_color(screen):
     color = screen.get_at((0, 0))
@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
         asteroids.update()
         # Uncomment to draw sprite real image
-        # asteroids.draw(screen)
+        asteroids.draw(screen)
         for asteroid in asteroids:
             screen.blit(asteroid.mask_surface, asteroid.rect)
 

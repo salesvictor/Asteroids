@@ -7,11 +7,11 @@ from ui.screen.GameOverScreen import GameOverScreen
 from ui.screen.SettingsScreen import SettingsScreen
 from score.ScoreCounter import ScoreCounter
 from models.player.UserPlayer import UserPlayer
-from models.SmallAsteroid import SmallAsteroid
-from models.MediumAsteroid import MediumAsteroid
-from models.BigAsteroid import BigAsteroid
-from models.BigSaucer import BigSaucer
-from models.SmallSaucer import SmallSaucer
+from models.asteroid.SmallAsteroid import SmallAsteroid
+from models.asteroid.MediumAsteroid import MediumAsteroid
+from models.asteroid.BigAsteroid import BigAsteroid
+from models.saucer.BigSaucer import BigSaucer
+from models.saucer.SmallSaucer import SmallSaucer
 from assets.sfx.Sounds import Sounds
 
 

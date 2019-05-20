@@ -4,6 +4,7 @@ from models.Ship import Ship
 from ui.text.TextBox import TextBox
 from ui.text.LivesBar import LivesBar
 from score.ScoreCounter import ScoreCounter
+from math import sin, cos, pi
 
 
 class Player(Ship):

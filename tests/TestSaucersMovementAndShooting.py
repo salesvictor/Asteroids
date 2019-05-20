@@ -1,6 +1,6 @@
 import pygame as pg
-from models.SmallSaucer import SmallSaucer
-from models.BigSaucer import BigSaucer
+from models.saucer.SmallSaucer import SmallSaucer
+from models.saucer.BigSauceraucer import BigSaucer
 from models.player.UserPlayer import UserPlayer
 
 if __name__ == '__main__':

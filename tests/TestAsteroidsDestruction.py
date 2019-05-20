@@ -1,5 +1,5 @@
 import pygame
-from models.BigAsteroid import BigAsteroid
+from models.asteroid.BigAsteroid import BigAsteroid
 
 if __name__ == '__main__':
     FPS = 60

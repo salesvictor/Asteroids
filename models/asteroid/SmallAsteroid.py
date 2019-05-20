@@ -1,6 +1,6 @@
 from math import sqrt
 
-from models.Asteroid import Asteroid
+from models.asteroid.Asteroid import Asteroid
 from assets.sfx.Sounds import Sounds
 
 

@@ -3,9 +3,9 @@ import pygame as pg
 from ui.screen import HighScoresScreen, GameScreen, ScreenBase, SettingsScreen
 from ui.text.TextBox import TextBox
 from ui.text.TextButton import TextButton
-from models.SmallAsteroid import SmallAsteroid
-from models.MediumAsteroid import MediumAsteroid
-from models.BigAsteroid import BigAsteroid
+from models.asteroid.SmallAsteroid import SmallAsteroid
+from models.asteroid.MediumAsteroid import MediumAsteroid
+from models.asteroid.BigAsteroid import BigAsteroid
 from assets.sfx.Sounds import Sounds
 
 

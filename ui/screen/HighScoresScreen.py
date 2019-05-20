@@ -8,9 +8,9 @@ from ui.screen import TitleScreen
 from ui.text.TextBox import TextBox
 from ui.text.TextButton import TextButton
 from score.ScoreCommunicator import ScoreCommunicator
-from models.SmallAsteroid import SmallAsteroid
-from models.MediumAsteroid import MediumAsteroid
-from models.BigAsteroid import BigAsteroid
+from models.asteroid.SmallAsteroid import SmallAsteroid
+from models.asteroid.MediumAsteroid import MediumAsteroid
+from models.asteroid.BigAsteroid import BigAsteroid
 
 
 class HighScoresScreen(ScreenBase):
