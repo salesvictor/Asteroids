@@ -78,22 +78,23 @@ class TrainerScreen(ScreenBase):
         #    if event.key == pg.K_ESCAPE:
         #       self.switch_to_scene(SettingsScreen(self.display, self, self.active_sprites))
 
-        # Todo: Create a random saucer class to instantiate a random saucer, and maybe variate this based on round
         # Create a random saucer
         if not self.saucers.__nonzero__():
             self.frames_since_saucer += 1
 
         if self.frames_since_saucer >= self.SAUCER_SPAWN_TIME:
             i = randint(1, 2)
-            if i == 1:
-                saucer = BigSaucer(self.display)
-            else:
-                saucer = SmallSaucer(self.display, self.round, self.player)
 
-            self.saucers.add(saucer)
-            self.active_sprites.add(self.saucers)
-            for saucer in self.saucers:
-                self.active_sprites.add(saucer.saucer_shot_bullets)
+            # Saucers were removed for training purpose, because of their difficulty
+            # if i == 1:
+            #    saucer = BigSaucer(self.display)
+            # else:
+            #    saucer = SmallSaucer(self.display, self.round, self.player)
+
+            #self.saucers.add(saucer)
+            #self.active_sprites.add(self.saucers)
+            #for saucer in self.saucers:
+            #    self.active_sprites.add(saucer.saucer_shot_bullets)
 
             # Whenever the first saucer appears in a round, other saucers will spawn
             # more often until the round is over
@@ -158,24 +159,13 @@ class TrainerScreen(ScreenBase):
             player.update(event, self.active_sprites)
             self.active_sprites.add(player.shot_bullets)
 
-        # Check if all players have permanently died and, if so, ends the game
-        # self.game_over = True
-        # for player in self.players:
-        #    if player.lives > 0:
-        #        self.game_over = False
-        #        break
-
-        # if self.game_over:
-        #    self.switch_to_scene(GameOverScreen(self.display, self.players,
-        #                                        self.active_sprites))
-
     # Render all text boxes and draw all sprites
     def render(self):
         self.display.fill(self.BG_COLOR)
+        self.active_sprites.draw(self.display)
         for player in self.players:
             player.render()
             player.draw_debug()
-        self.active_sprites.draw(self.display)
 
 
 def main(args, fps):

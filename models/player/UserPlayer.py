@@ -1,6 +1,7 @@
 import pygame as pg
 
-from models.player.Player import Player, FORWARD, TURN_LEFT, TURN_RIGHT, SHOOT
+from models.player.Player import Player
+from utils.constants import FORWARD, TURN_LEFT, TURN_RIGHT, SHOOT
 
 
 class UserPlayer(Player):

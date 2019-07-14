@@ -1,6 +1,6 @@
 import numpy as np
 
-from neural_network.NeuralNetwork import NeuralNetwork
+from learning.SupervisedNetwork import NeuralNetwork
 
 if __name__ == '__main__':
     nn = NeuralNetwork(10, 1)

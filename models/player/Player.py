@@ -4,16 +4,11 @@ from models.Ship import Ship
 from ui.text.TextBox import TextBox
 from ui.text.LivesBar import LivesBar
 from score.ScoreCounter import ScoreCounter
+from utils.constants import N_INPUTS, N_OUTPUTS
 from math import sin, cos, pi, radians, sqrt, atan2
 import numpy as np
 import csv
 import os
-
-# Actions
-FORWARD = 0
-TURN_LEFT = 1
-TURN_RIGHT = 2
-SHOOT = 3
 
 
 class Player(Ship):
@@ -66,9 +61,10 @@ class Player(Ship):
         # Modeling attributes
         self.closest_enemy = [None] * 4
         self.scene = scene
+        self.input = np.zeros((1, N_INPUTS))
 
         # Actions mapping
-        self.action = [False] * 4
+        self.action = [False] * N_OUTPUTS
 
         # Logging
         self.log_file_name = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "db/player_log.csv")
@@ -192,8 +188,27 @@ class Player(Ship):
                     if not self.closest_enemy[index] or self.closest_enemy[index][1] > distance:
                         self.closest_enemy[index] = (sprite, distance)
 
+        self.input = [normalize(self.x, 0, max(self.screen.get_width(), self.screen.get_height())),
+                      normalize(self.y, 0, max(self.screen.get_width(), self.screen.get_height())),
+                      normalize(self.speed[0], 0, self.MAX_SPEED),
+                      normalize(self.speed[1], 0, self.MAX_SPEED),
+                      normalize(self.direction, 0, 360)]
+
+        for enemy in self.closest_enemy:
+            if enemy:
+                self.input.extend([1,
+                                   normalize(enemy[0].x, 0, max(self.screen.get_width(), self.screen.get_height())),
+                                   normalize(enemy[0].x, 0, max(self.screen.get_width(), self.screen.get_height()))])
+            else:
+                self.input.extend([-1, 1, 1])
+
+        self.input = np.matrix(self.input)
+
     # Function to log players modeling and actions
     def log(self):
+        if True not in self.action:
+            return  # filtering cases of inert agent
+
         if not self.log_file:
             if os.path.exists(self.log_file_name):
                 self.log_file = open(self.log_file_name, 'a+')
@@ -202,20 +217,10 @@ class Player(Ship):
 
         log_writer = csv.writer(self.log_file)
 
-        data = [self.name,
-                self.x,
-                self.y,
-                self.speed[0],
-                self.speed[1],
-                self.direction]
-
-        for enemy in self.closest_enemy:
-            if enemy:
-                data.extend([True, enemy[0].x, enemy[0].y, enemy[0].speed[0], enemy[0].speed[1]])
-            else:
-                data.extend([False, 0.0, 0.0, 0.0, 0.0])
-
-        data.extend(self.action)
+        data = [self.name]
+        data.extend(self.input.tolist()[0])
+        for action in self.action:
+            data.append(1 if action else -1)
         data.append(self.score)
 
         log_writer.writerow(data)
@@ -230,3 +235,7 @@ class Player(Ship):
             pg.draw.line(self.scene.display, (255, 255, 255), start_pos, end_pos)
             if self.closest_enemy[i]:
                 self.scene.display.blit(self.closest_enemy[i][0].mask_surface, self.closest_enemy[i][0].rect)
+
+
+def normalize(x, min, max):
+    return (x - min)/(max-min)
