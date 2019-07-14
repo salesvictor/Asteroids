@@ -24,6 +24,9 @@ class TextBox(pg.sprite.Sprite):
         size = (self.text.get_width(), self.text.get_height())
         self.rect = pg.Rect((center[0]-size[0]//2, center[1]-size[1]//2), size)
 
+        # Box can be hidden in window
+        self.hidden = False
+
         self.screen = screen
 
     def set_dialogue(self, dialogue):
@@ -35,6 +38,13 @@ class TextBox(pg.sprite.Sprite):
     def update(self, event):
         pass
 
+    def hide(self):
+        if not self.hidden:
+            self.screen.fill(self.BG_COLOR, self.rect)
+
+        self.hidden = False
+
     def render(self):
+        self.hidden = False
         self.screen.fill(self.BG_COLOR, self.rect)
         self.screen.blit(self.text, self.rect.topleft)

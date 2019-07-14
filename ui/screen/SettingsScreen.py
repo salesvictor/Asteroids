@@ -27,8 +27,10 @@ class SettingsScreen(ScreenBase):
         self.MUTE_CENTER = (self.display_width_factor * 550, self.display_height_factor * 250)
         self.RESUME_BUTTON_CENTER = (self.SCREEN_TITLE_CENTER[0],
                                      self.SCREEN_TITLE_CENTER[1] + self.display_height_factor * 250)
-        self.MAIN_MENU_CENTER = (self.RESUME_BUTTON_CENTER[0],
-                                 self.RESUME_BUTTON_CENTER[1] + self.display_height_factor * 50)
+        self.LOG_CENTER = (self.RESUME_BUTTON_CENTER[0],
+                           self.RESUME_BUTTON_CENTER[1] + self.display_height_factor * 100)
+        self.MAIN_MENU_CENTER = (self.LOG_CENTER[0],
+                                 self.LOG_CENTER[1] + self.display_height_factor * 100)
 
         # Create screen title and buttons
         self.screen_title = TextBox(self.display, self.SCREEN_TITLE_CENTER, self.SCREEN_TITLE_FONT_SIZE, "SETTINGS")
@@ -38,6 +40,7 @@ class SettingsScreen(ScreenBase):
         self.bonus = TextButton(self.display, self.BONUS_CENTER, self.OPTIONS_FONT_SIZE, "BONUS")
         self.none = TextButton(self.display, self.MUTE_CENTER, self.OPTIONS_FONT_SIZE, "MUTE")
         self.resume_button = TextButton(self.display, self.RESUME_BUTTON_CENTER, self.RESUME_BUTTON_FONT_SIZE, "RESUME")
+        self.log_button = TextButton(self.display, self.LOG_CENTER, self.RESUME_BUTTON_FONT_SIZE, "LOG")
         self.main_menu_button = TextButton(self.display, self.MAIN_MENU_CENTER, self.RESUME_BUTTON_FONT_SIZE,
                                            "MAIN MENU")
 
@@ -83,6 +86,12 @@ class SettingsScreen(ScreenBase):
         if self.resume_button.get_clicked():
             self.switch_to_scene(self.previous_scene)
 
+        # If log button is clicked, switch logging state of previous scene, if possible
+        self.log_button.update(event)
+        if self.log_button.get_clicked():
+            if self.previous_scene.__class__.__name__ == "GameScreen":
+                self.previous_scene.logging = not self.previous_scene.logging
+
         # If main menu button is clicked, switches to title screen
         self.main_menu_button.update(event)
         if self.main_menu_button.get_clicked():
@@ -99,4 +108,5 @@ class SettingsScreen(ScreenBase):
         self.bonus.render()
         self.none.render()
         self.resume_button.render()
+        self.log_button.render()
         self.main_menu_button.render()
